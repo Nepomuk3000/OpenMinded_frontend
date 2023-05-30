@@ -1,0 +1,33 @@
+<button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="navigateTo('')">{{ 'Frontpage' | transloco }}</button>
+    <button mat-menu-item (click)="navigateTo('gallery')">{{ 'Gallery' | transloco }}</button>
+
+    <mat-menu [overlapTrigger]="false" #adminMenu="matMenu">
+      <button mat-menu-item (click)="navigateTo('labels')">{{ 'Labels' | transloco }}</button>
+    </mat-menu>
+
+
+    <mat-menu [overlapTrigger]="false" #prefMenu="matMenu">
+      <button mat-menu-item (click)="navigateTo('signup')">{{ 'Signup' | transloco }}</button>
+      <button mat-menu-item (click)="navigateTo('profile')">{{ 'Account' | transloco }}</button>
+
+
+      <mat-menu [overlapTrigger]="false" #languageMenu="matMenu">
+        <button mat-menu-item (click)="changeLang('en')">{{ 'English' | transloco }}</button>
+        <button mat-menu-item (click)="changeLang('fr')">{{ 'French' | transloco }}</button>
+      </mat-menu>
+      <button mat-menu-item [matMenuTriggerFor]="languageMenu">{{ 'Language' | transloco }}</button>
+
+
+    </mat-menu>
+    
+    <button mat-menu-item [matMenuTriggerFor]="adminMenu">{{ 'Administration' | transloco }}</button>
+    <button mat-menu-item [matMenuTriggerFor]="prefMenu">{{ 'Preferences' | transloco }}</button>
+
+    
+  </mat-menu>
+  

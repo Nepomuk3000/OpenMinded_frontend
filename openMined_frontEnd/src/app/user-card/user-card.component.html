@@ -1,0 +1,108 @@
+
+<div class="imageMarkersContaier">
+
+  <span *ngFor="let image of imagesList; let i = index; let isFirst = first" [ngClass]="'imageMark-' + i + ' ' + (isFirst ? 'imageMarkerUp' : 'imageMarkerDown')"></span>
+</div>
+
+
+<div class="user-card">
+  
+      <mat-card class="card">
+
+        <!--mat-card-header> 
+          <mat-card-title>{{ user.username }}</mat-card-title>
+        </mat-card-header-->
+
+
+        <mat-card-content>
+          <div class="img-container" style="position: relative;">
+            <img mat-card-image [src]="image" alt="Photo"  (click)="handleImageClick($event)">
+            <span class="username">{{ user.username }}</span>
+            <ng-container *ngIf="!isEditable && hasAMouse && !hideNextPrecButtons">
+              <button class="button left" (click)="handleLeftButtonClick()">    <mat-icon>keyboard_arrow_left</mat-icon></button>
+              <button class="button right" (click)="handleRightButtonClick()">    <mat-icon>keyboard_arrow_right</mat-icon></button>
+            </ng-container>
+            <button class="button down" (click)="handleDownButtonClick()">    <mat-icon>keyboard_arrow_down</mat-icon></button>
+            
+            <ng-container *ngIf="!isEditable">
+              <mat-card-actions  class="buttonsBox">
+                <app-user-button-bar></app-user-button-bar>
+              </mat-card-actions>
+            </ng-container>
+          </div>
+     <!-- 
+  <mat-accordion>
+
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                          (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        
+        <mat-panel-title><h3>{{'Details'|transloco}}</h3></mat-panel-title>
+      </mat-expansion-panel-header>
+    -->
+    
+    <ng-container  *ngIf="showMore">
+      <ng-container *ngFor="let info of user.informations">
+        <ng-container *ngIf="info.type=='Profile'">
+          <mat-form-field [ngClass]="editableOrNot()">                        
+            <mat-label>{{ info.type }}</mat-label>
+            <textarea matInput 
+              [readonly]="!isEditable" 
+              [ngClass]="editableOrNot()"
+              [name]="'info_' + info.type"
+              [(ngModel)]="info.text" 
+              (keydown.space)="$event.stopPropagation()">
+            </textarea>
+          </mat-form-field>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="isEditable">
+        <mat-form-field  [ngClass]="editableOrNot()">
+          <input matInput placeholder="{{'Lastname'|transloco}}"  [(ngModel)]="user.lastname" name="lastname">
+        </mat-form-field>
+        <mat-form-field [ngClass]="editableOrNot()">
+          <input matInput placeholder="{{'Firstname'|transloco}}" [(ngModel)]="user.firstname" name="firstname">
+        </mat-form-field>
+        <mat-form-field [ngClass]="editableOrNot()">
+          <input matInput placeholder="{{'eMail'|transloco}}"  [(ngModel)]="user.eMail" name="eMail">
+        </mat-form-field>
+
+      </ng-container>
+
+      <ng-container *ngFor="let relationship of user.relationships">
+        <mat-form-field [ngClass]="editableOrNot()">
+          <input matInput placeholder="{{ relationship.type }} to" value="{{ relationship.user?.username }}">
+        </mat-form-field>
+      </ng-container>
+
+      <ng-container *ngFor="let info of user.informations">
+        <ng-container *ngIf="info.type!='Profile'">
+          <mat-form-field [ngClass]="editableOrNot()">                        
+            <mat-label>{{ info.type }}</mat-label>
+            <textarea matInput 
+              [readonly]="!isEditable" 
+              [ngClass]="editableOrNot()"
+              [name]="'info_' + info.type"
+              [(ngModel)]="info.text" 
+              (keydown.space)="$event.stopPropagation()">
+            </textarea>
+          </mat-form-field>
+        </ng-container>
+      </ng-container>
+
+      <ng-container *ngIf="isEditable">
+        <button mat-button type="submit">{{'Save'|transloco}}</button>
+      </ng-container>
+
+    </ng-container>
+          
+  </mat-card-content>
+</mat-card>
+
+   <!--
+    </mat-expansion-panel>
+  </mat-accordion>
+  -->
+            
+
+</div>

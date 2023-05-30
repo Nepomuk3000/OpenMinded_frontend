@@ -1,0 +1,79 @@
+<form>
+  <mat-form-field>
+    <mat-label i18n="@@firstname">Firstname</mat-label>
+    <input matInput placeholder="Firstname" type="firstname">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label i18n="@@lastname">Lastname</mat-label>
+    <input matInput placeholder="Lastname" type="lastname">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label i18n="@@username">Unsername</mat-label>
+    <input matInput placeholder="User name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label i18n="@@email">eMail</mat-label>
+    <input matInput placeholder="eMail" type="email">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label i18n="@@pasword">Password</mat-label>
+    <input matInput placeholder="Password" type="password">
+  </mat-form-field>
+
+  <!-- Autres champs de formulaire -->
+
+  <button mat-raised-button color="primary" i18n="@@sign-up">Sign-Up</button>
+</form>
+
+
+
+
+
+<form (ngSubmit)="onSignup()">
+    <div>
+      <label for="firstname">Firstname</label>
+      <input type="text" id="firstname" name="firstname" [(ngModel)]="model.firstname">
+    </div>
+    <div>
+        <label for="lastname">Lastname</label>
+        <input type="text" id="lastname" name="username" [(ngModel)]="model.lastname">
+      </div>
+      <div>
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" [(ngModel)]="model.username">
+      </div>
+
+    <div>
+      <label for="email">eMail</label>
+      <input type="email" id="email" name="email" [(ngModel)]="model.email">
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" [(ngModel)]="model.password">
+    </div>
+    <button type="submit">Sign-Up</button>
+  </form>
+
+  <form (ngSubmit)="onLogin()">
+    <div>
+      <label for="email">eMail</label>
+      <input type="email" id="email" name="email" [(ngModel)]="model.email">
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" [(ngModel)]="model.password">
+    </div>
+    <button type="submit">Login</button>
+  </form>
+ 
+  <form (ngSubmit)="getAngelique()">
+    <div>
+      <label for="email">eMail</label>
+      <input type="email" id="email" name="email" [(ngModel)]="model.email">
+    </div>
+    <button type="submit">GetAngelique</button>
+  </form>

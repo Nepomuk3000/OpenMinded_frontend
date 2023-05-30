@@ -1,0 +1,125 @@
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
+.user-card {
+    position: relative;
+    width: 100%;
+  }
+
+  .img-container {
+    width: 100%; /* La largeur souhaitée du conteneur */
+    padding-top: 100%; /* La hauteur souhaitée du conteneur */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .img-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .username {
+    position: absolute; 
+    top: 0%; 
+    left: 0%;
+    font-size: larger; 
+    color: white; 
+    background-color: rgba(0, 0, 0, 0.6); 
+    padding: 5px;
+    margin: 5px;
+  }
+
+  .mat-expansion-panel-header{
+    height: auto
+  }
+
+  .mat-mdc-form-field + .mat-mdc-form-field {
+    margin-left: 8px;
+  }
+
+  .mat-form-field {
+    width: 100%;
+  }
+
+  :host {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .editable {
+    /* Styles CSS spécifiques pour le mode éditable */
+    color: black;
+    background-color: rgb(243, 243, 243);
+
+  }
+  
+  .notEditable {
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .imageMarkersContaier {
+    width: 100%; /* La largeur souhaitée du conteneur */
+    height: 5px; /* La hauteur des rectangles */
+    margin-bottom: 10px; /* Espace entre les rectangles et le conteneur suivant */
+    display: flex;
+  }
+  
+  .imageMarkersContaier span {
+    flex: 1;
+    height: 100%;
+    margin-right: 6px; /* Espace horizontal entre les rectangles */
+    border-radius: 10%; /* Arrondir les angles */
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5); /* Ajouter une ombre */
+  }
+  
+  .imageMarkersContaier span:last-child {
+    margin-right: 0; /* Supprimer la marge à droite du dernier rectangle */
+  }
+  
+  .imageMarkerDown {
+    background-color: rgb(145, 145, 145); /* Couleur de fond des rectangles */
+
+  }
+  .imageMarkerUp {
+    background-color: rgb(201, 201, 201); /* Couleur de fond des rectangles */
+
+  }
+
+  .button {
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  .left {
+    position: absolute;
+    left: 10px; /* ajustez la position horizontale de la flèche gauche */
+  }
+  
+  .right {
+    position: absolute;
+    right: 10px; /* ajustez la position horizontale de la flèche droite */
+  }
+  
+  .down {
+    position: absolute;
+    right: 10px; /* ajustez la position horizontale de la flèche droite */
+    top: 90%;
+  }
+
+  
+
+  .lowerButtons
+  {
+    flex: 1;
+    margin-right: 5%;  /* Espace horizontal entre les rectangles */
+    width:40px
+  }

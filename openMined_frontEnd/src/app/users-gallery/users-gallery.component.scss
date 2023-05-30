@@ -1,0 +1,22 @@
+
+  
+  :host {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .users-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width:80%
+  }
+  
+  app-user-card {
+    flex: 1;
+    margin:10px;
+    min-width: 200px;  
+    max-width: 300px;
+    //flex-basis: calc(100% / 5 - 20px); /* Répartit l'espace en 5 colonnes avec une marge de 10px de chaque côté */
+  }

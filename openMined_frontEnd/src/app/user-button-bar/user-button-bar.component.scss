@@ -1,0 +1,25 @@
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
+.button {
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.3);
+    margin:3px
+  }
+
+  .share {
+    color: rgb(1, 160, 160)
+  }
+
+  .talk {
+    color: rgb(33, 160, 1)
+  }
+
+  .like {
+    color: rgb(1, 1, 160)
+  }
+
+  .love {
+    color: rgb(160, 1, 1)
+  }
