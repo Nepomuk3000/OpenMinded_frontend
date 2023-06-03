@@ -59,8 +59,8 @@ export class UserService {
     );
   }
   
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl).pipe(
+  getUsers(count:number=10,skip:number=0): Observable<User[]> {
+    return this.http.get<User[]>(this.apiUrl + "?count=" + String(count)+ "&skip=" + String(skip)).pipe(
       map((users: User[]) => {
         users.forEach(user => {
           this.completeUser(user).subscribe((user:User)=>{});
