@@ -12,6 +12,7 @@ export class UserButtonBarComponent implements OnInit {
   @Output() talkToUser: EventEmitter<any> = new EventEmitter();
   @Output() shareUser: EventEmitter<any> = new EventEmitter();
   @Output() loveUser: EventEmitter<any> = new EventEmitter();
+  @Output() rejectUser: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
@@ -33,5 +34,9 @@ export class UserButtonBarComponent implements OnInit {
   handleLoveButtonClick()
   {
     this.loveUser.emit();
+  }
+  handleRejectButtonClick()
+  {
+    this.rejectUser.emit();
   }
 }

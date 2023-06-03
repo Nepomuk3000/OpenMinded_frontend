@@ -131,4 +131,9 @@ export class UserCardComponent implements OnInit {
   {
     this.showMore=!this.showMore;
   }
+
+  handleRejectUser()
+  {
+    console.log("TODO : Implémenter le rejet d'un utilisateur")
+  }
 }

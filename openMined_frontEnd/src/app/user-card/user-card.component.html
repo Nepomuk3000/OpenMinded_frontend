@@ -26,7 +26,7 @@
             
             <ng-container *ngIf="!isEditable">
               <mat-card-actions  class="buttonsBox">
-                <app-user-button-bar></app-user-button-bar>
+                <app-user-button-bar (rejectUser)="handleRejectUser()"></app-user-button-bar>
               </mat-card-actions>
             </ng-container>
           </div>
