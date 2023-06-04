@@ -1,6 +1,7 @@
 
 import { Component, OnInit, HostListener, ElementRef, Renderer2  } from '@angular/core';
 import { User } from 'src/models/user.model';
+import { AuthService } from 'src/services/auth-service';
 
 
 @Component({
@@ -10,9 +11,12 @@ import { User } from 'src/models/user.model';
 })
 export class UserProfileComponent {
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+  userId:string='';
+
+  constructor(private elementRef: ElementRef, private renderer: Renderer2, private authService: AuthService) {}
 
   ngOnInit() {
+    this.userId = this.authService.getUserId() as string;
     this.onResize();
   }
 
