@@ -11,7 +11,11 @@ import { AuthService } from 'src/services/auth-service';
 export class NavbarComponent {
   constructor(private router: Router,
               private translocoService: TranslocoService,
-              public authService : AuthService) {}
+              public authService : AuthService) {
+                
+    const lang = localStorage.getItem('lang') || 'en';
+    this.changeLang(lang);
+  }
 
   navigateTo(route: string) {
     this.router.navigate([route]);
@@ -19,6 +23,7 @@ export class NavbarComponent {
   
   changeLang(lang: string) {
     this.translocoService.setActiveLang(lang);
+    localStorage.setItem('lang', lang);
   }
 
   logout()
