@@ -4,7 +4,8 @@
   
   <mat-menu #menu="matMenu">
     <button *ngIf="authService.isAuthenticated()" mat-menu-item (click)="navigateTo('')">{{ 'Frontpage' | transloco }}</button>
-    <button *ngIf="authService.isAuthenticated()" mat-menu-item (click)="navigateTo('gallery')">{{ 'Gallery' | transloco }}</button>
+    <button *ngIf="authService.isAuthenticated()" mat-menu-item (click)="navigateTo('random')">{{ 'Random' | transloco }}</button>
+    <!--<button *ngIf="authService.isAuthenticated()" mat-menu-item (click)="navigateTo('gallery')">{{ 'Gallery' | transloco }}</button>-->
     <button *ngIf="!authService.isAuthenticated()" mat-menu-item (click)="navigateTo('signup')">{{ 'Sign-Up' | transloco }} / {{ 'Sign-In' | transloco }} </button>
 
     <mat-menu [overlapTrigger]="false" #adminMenu="matMenu">

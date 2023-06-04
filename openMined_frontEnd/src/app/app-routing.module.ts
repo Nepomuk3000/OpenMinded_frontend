@@ -12,7 +12,8 @@ import { SignupFormComponent } from './signup-form/signup-form.component';
 import { LabelsListComponent } from './labels-tree/labels-list.component';
 
 const routes: Routes = [
-  { path: '', component: UsersFlowComponent },
+  { path: '', component: UsersGalleryComponent },
+  { path: 'random', component: UsersFlowComponent },
   { path: 'signup', component: SignupFormComponent },
   { path: 'gallery', component: UsersGalleryComponent },
   { path: 'labels', component: LabelsListComponent },

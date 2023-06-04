@@ -87,7 +87,6 @@ export class UserService {
   updateUser(user:User,newValues:any){
     Object.keys(newValues).forEach(key => {
       let value = newValues[key];
-      console.log(" --- " + key + " - " + value);
       if (key.startsWith("info_"))
       {
         const infoType = key.split('_')[1];
