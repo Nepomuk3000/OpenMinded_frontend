@@ -5,6 +5,7 @@
   <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="navigateTo('')">{{ 'Frontpage' | transloco }}</button>
     <button mat-menu-item (click)="navigateTo('gallery')">{{ 'Gallery' | transloco }}</button>
+    <button mat-menu-item (click)="logout()">{{ 'Logout' | transloco }}</button>
 
     <mat-menu [overlapTrigger]="false" #adminMenu="matMenu">
       <button mat-menu-item (click)="navigateTo('labels')">{{ 'Labels' | transloco }}</button>

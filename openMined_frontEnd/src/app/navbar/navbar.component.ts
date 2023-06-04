@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
+import { AuthService } from 'src/services/auth-service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +9,7 @@ import { TranslocoService } from '@ngneat/transloco';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  constructor(private router: Router,private translocoService: TranslocoService) {}
+  constructor(private router: Router,private translocoService: TranslocoService,private authService : AuthService) {}
 
   navigateTo(route: string) {
     this.router.navigate([route]);
@@ -17,6 +18,11 @@ export class NavbarComponent {
 
   changeLang(lang: string) {
     this.translocoService.setActiveLang(lang);
+  }
+
+  logout()
+  {
+    this.authService.removeTokenAndUserId();
   }
 
 }

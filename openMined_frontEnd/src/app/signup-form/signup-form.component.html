@@ -1,79 +1,55 @@
-<form>
-  <mat-form-field>
-    <mat-label i18n="@@firstname">Firstname</mat-label>
-    <input matInput placeholder="Firstname" type="firstname">
-  </mat-form-field>
+<mat-card>
+  <mat-card-content>
+    <mat-form-field>
+      <mat-label>{{ 'Firstname' | transloco }}</mat-label>
+      <input matInput placeholder="Firstname" type="text" name="firstname">
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label i18n="@@lastname">Lastname</mat-label>
-    <input matInput placeholder="Lastname" type="lastname">
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>{{ 'Lastname' | transloco }}</mat-label>
+      <input matInput placeholder="Lastname" type="text" name="lastname">
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label i18n="@@username">Unsername</mat-label>
-    <input matInput placeholder="User name">
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>{{ 'Username' | transloco }}</mat-label>
+      <input matInput placeholder="Username" type="text" name="username">
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label i18n="@@email">eMail</mat-label>
-    <input matInput placeholder="eMail" type="email">
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>{{ 'eMail' | transloco }}</mat-label>
+      <input matInput placeholder="eMail" type="email" name="email">
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label i18n="@@pasword">Password</mat-label>
-    <input matInput placeholder="Password" type="password">
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>{{ 'Password' | transloco }}</mat-label>
+      <input matInput placeholder="Password" type="password" name="password">
+    </mat-form-field>
+  </mat-card-content>
 
-  <!-- Autres champs de formulaire -->
-
-  <button mat-raised-button color="primary" i18n="@@sign-up">Sign-Up</button>
-</form>
-
-
-
+  <mat-card-actions>
+    <button mat-raised-button color="primary">{{ 'Sign-Up' | transloco }}</button>
+  </mat-card-actions>
+</mat-card>
 
 
-<form (ngSubmit)="onSignup()">
-    <div>
-      <label for="firstname">Firstname</label>
-      <input type="text" id="firstname" name="firstname" [(ngModel)]="model.firstname">
-    </div>
-    <div>
-        <label for="lastname">Lastname</label>
-        <input type="text" id="lastname" name="username" [(ngModel)]="model.lastname">
-      </div>
-      <div>
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" [(ngModel)]="model.username">
-      </div>
 
-    <div>
-      <label for="email">eMail</label>
-      <input type="email" id="email" name="email" [(ngModel)]="model.email">
-    </div>
-    <div>
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" [(ngModel)]="model.password">
-    </div>
-    <button type="submit">Sign-Up</button>
-  </form>
+<mat-card>
+  <mat-card-content>
+    <form #signInForm="ngForm" (ngSubmit)="onLogin(signInForm)">
+      <mat-form-field>
+        <mat-label>{{ 'Username' | transloco }}</mat-label>
+        <input matInput placeholder="Username" type="text" name="username" [(ngModel)]="signInForm.value.username">
+      </mat-form-field>
 
-  <form (ngSubmit)="onLogin()">
-    <div>
-      <label for="email">eMail</label>
-      <input type="email" id="email" name="email" [(ngModel)]="model.email">
-    </div>
-    <div>
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" [(ngModel)]="model.password">
-    </div>
-    <button type="submit">Login</button>
-  </form>
- 
-  <form (ngSubmit)="getAngelique()">
-    <div>
-      <label for="email">eMail</label>
-      <input type="email" id="email" name="email" [(ngModel)]="model.email">
-    </div>
-    <button type="submit">GetAngelique</button>
-  </form>
+      <mat-form-field>
+        <mat-label>{{ 'Password' | transloco }}</mat-label>
+        <input matInput placeholder="Password" type="password" name="password" [(ngModel)]="signInForm.value.password">
+      </mat-form-field>
+
+      <mat-card-actions>
+        <button mat-raised-button type="submit" color="primary">{{ 'Sign-In' | transloco }}</button>
+      </mat-card-actions>
+    </form>
+  </mat-card-content>
+  <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+</mat-card>

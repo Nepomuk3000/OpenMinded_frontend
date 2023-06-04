@@ -36,6 +36,11 @@ import { TranslocoRootModule } from './transloco-root.module';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
+import { AuthService } from '../services/auth-service';
+
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../interceptors/auth.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,7 +76,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AppRoutingModule,
     TranslocoRootModule
   ],
-  providers: [],
+  providers: [AuthService,
+              {
+                provide: HTTP_INTERCEPTORS,
+                useClass: AuthInterceptor,
+                multi: true
+              }
+            ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
