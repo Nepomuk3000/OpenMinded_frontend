@@ -51,5 +51,5 @@
       </mat-card-actions>
     </form>
   </mat-card-content>
-  <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+  <p *ngIf="message" [ngClass]="messageClass">{{ message }}</p>
 </mat-card>

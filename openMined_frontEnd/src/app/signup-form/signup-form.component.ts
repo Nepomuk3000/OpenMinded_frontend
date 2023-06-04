@@ -9,12 +9,18 @@ interface LoginResponse {
   userName: string;
   token: string;
 }
+
+enum MessageType {
+  Info = 'Info',
+  Debug = 'Debug',
+  Error = 'Error'
+}
+
 @Component({
   selector: 'app-signup-form',
   templateUrl: './signup-form.component.html',
   styleUrls: ['./signup-form.component.scss']
 })
-
 export class SignupFormComponent {
 
   model = {
@@ -24,8 +30,12 @@ export class SignupFormComponent {
     email: '',
     password: ''
   };
-  errorMessage: string ="";
-  constructor(private http: HttpClient,private authService: AuthService) {}
+  message: string ="";
+  messageClass: string = "";
+
+  constructor(private http: HttpClient,
+              private authService: AuthService,
+              private router: Router,) {}
 
   onSignup() {
     this.http.post('http://192.168.1.111:3000/api/user/signup', this.model).subscribe(response => {
@@ -36,22 +46,40 @@ export class SignupFormComponent {
   onLogin(form: NgForm) {
     this.model.username = form.value.username;
     this.model.password = form.value.password;
-    console.log("this.username       : " + form.value.username);
-    console.log("this.model.username : " + this.model.username);
 
      this.http.post<LoginResponse>('http://192.168.1.111:3000/api/user/login', this.model).subscribe(
        response => {
           // Succès de la requête (code de statut 200)
-          console.log("DBG1 : " + response.userName)
           this.authService.removeTokenAndUserId();
           this.authService.saveUserInfos(response.token,response.userId,response.userName);
-          this.errorMessage = "Your are logged"; // Masquer l'éventuelle erreur affichée précédement 
+          this.setMessage("You are logged in");
         },
         error => {
           // Erreur de la requête (autre code de statut que 200)
-          this.errorMessage = error.message;
+          this.setMessage(error.message, MessageType.Error);
           this.authService.removeTokenAndUserId();
         }
     );
+  }
+
+  setMessage(message:string, type:MessageType=MessageType.Info){
+    this.message = message; // Masquer l'éventuelle erreur affichée précédement 
+    switch (type) {
+      case MessageType.Error:
+        this.messageClass = 'error-message';
+        break;
+      case MessageType.Info:
+        this.messageClass = 'info-message';
+        break;
+      default:
+        console.log('Unknown message type');
+    }
+    setTimeout(() => {
+      this.clearMessage();
+    }, 4000);
+  }
+
+  clearMessage() {
+    this.message="";
   }
 }
