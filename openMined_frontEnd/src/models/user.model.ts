@@ -36,4 +36,5 @@ export class User {
     dateOfBirth:Date=new Date();
     userObject : User | undefined;
     visits : Visit [] = [];
+    isAdmin:boolean = false;
   }
