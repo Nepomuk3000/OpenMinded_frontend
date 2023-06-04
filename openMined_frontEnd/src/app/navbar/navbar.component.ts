@@ -9,13 +9,14 @@ import { AuthService } from 'src/services/auth-service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  constructor(private router: Router,private translocoService: TranslocoService,private authService : AuthService) {}
+  constructor(private router: Router,
+              private translocoService: TranslocoService,
+              public authService : AuthService) {}
 
   navigateTo(route: string) {
     this.router.navigate([route]);
   } 
   
-
   changeLang(lang: string) {
     this.translocoService.setActiveLang(lang);
   }
@@ -23,6 +24,7 @@ export class NavbarComponent {
   logout()
   {
     this.authService.removeTokenAndUserId();
+    this.navigateTo('signup');
   }
 
 }
