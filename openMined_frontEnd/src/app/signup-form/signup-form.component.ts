@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth-service';
+import { Router } from '@angular/router';
 
 
 interface LoginResponse {
@@ -53,6 +54,7 @@ export class SignupFormComponent {
           this.authService.removeTokenAndUserId();
           this.authService.saveUserInfos(response.token,response.userId,response.userName);
           this.setMessage("You are logged in");
+          this.router.navigate(['/']);
         },
         error => {
           // Erreur de la requête (autre code de statut que 200)
