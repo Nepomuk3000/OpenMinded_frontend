@@ -8,20 +8,14 @@ import { AuthService } from 'src/services/auth-service';
 })
 export class AppComponent implements OnInit{
 
-  userName:String="";
   constructor(
     private renderer:Renderer2,
     private elementRef:ElementRef,
-    private authService: AuthService){}
+    public authService: AuthService){}
 
   ngOnInit()
   {
     this.onResize();
-    this.userName = String(this.authService.getUserName());
-    this.authService.newUserName.subscribe((name: string) => {
-      // Gérez l'événement ici, par exemple, affectez la valeur à une propriété du composant
-      this.userName = name;
-    });
   }
 
   @HostListener('window:resize', [])
