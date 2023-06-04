@@ -7,7 +7,8 @@
 
 <div class="user-card">
   
-      <mat-card class="card">
+  <form #profileForm="ngForm" (ngSubmit)="onSave(profileForm)">
+    <mat-card class="card">
 
         <!--mat-card-header> 
           <mat-card-title>{{ user.username }}</mat-card-title>
@@ -19,10 +20,10 @@
             <img mat-card-image [src]="image" alt="Photo"  (click)="handleImageClick($event)">
             <span class="username">{{ user.username }}</span>
             <ng-container *ngIf="!isEditable && hasAMouse && !hideNextPrecButtons">
-              <button class="button left" (click)="handleLeftButtonClick()">    <mat-icon>keyboard_arrow_left</mat-icon></button>
-              <button class="button right" (click)="handleRightButtonClick()">    <mat-icon>keyboard_arrow_right</mat-icon></button>
+              <button class="button left" type="button" (click)="handleLeftButtonClick()">    <mat-icon>keyboard_arrow_left</mat-icon></button>
+              <button class="button right" type="button" (click)="handleRightButtonClick()">    <mat-icon>keyboard_arrow_right</mat-icon></button>
             </ng-container>
-            <button class="button down" (click)="handleDownButtonClick()">    <mat-icon>keyboard_arrow_down</mat-icon></button>
+            <button class="button down" type="button" (click)="handleDownButtonClick()">    <mat-icon>keyboard_arrow_down</mat-icon></button>
             
             <ng-container *ngIf="!isEditable">
               <mat-card-actions  class="buttonsBox">
@@ -91,13 +92,14 @@
       </ng-container>
 
       <ng-container *ngIf="isEditable">
-        <button mat-button type="submit">{{'Save'|transloco}}</button>
+        <button mat-raised-button type="submit" color="primary">{{'Save'|transloco}}</button>
       </ng-container>
 
     </ng-container>
           
   </mat-card-content>
 </mat-card>
+</form>
 
    <!--
     </mat-expansion-panel>

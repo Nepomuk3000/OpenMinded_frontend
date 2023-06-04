@@ -1,6 +1,5 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { UserService } from './user.service';
-import { User } from 'src/models/user.model';
 import { map } from 'rxjs/operators';
 
 @Injectable({

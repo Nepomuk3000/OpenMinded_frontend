@@ -121,7 +121,7 @@ export class UserService {
       info.text = newValues.info_Profile;
       user.informations.push(info);
     }
-
+    
     return this.http.put<User>(this.apiUrl + "/" + user._id,user).subscribe((user:User)=>
       { 
         return user;

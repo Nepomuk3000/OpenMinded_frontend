@@ -68,7 +68,7 @@ export class UserCardComponent implements OnInit {
   }
 
 
-  onFormSubmit(form: NgForm) {
+  onSave(form: NgForm) {
     // Vérifiez si le formulaire est valide avant de traiter les modifications
     if (form.valid) {
       this.userService.updateUser(this.user,form.value);
