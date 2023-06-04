@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { Observer } from 'rxjs';
+import { AuthService } from 'src/services/auth-service';
 
 @Component({
   selector: 'app-labels-list',
@@ -13,7 +14,10 @@ export class LabelsListComponent implements OnInit {
   labels: any[] = [];
   memorizedLabels = new Map();
   colonnesTableau: string[] = [ 'title','category','subcategory', 'description','actions'];
-  constructor(private http: HttpClient,private renderer: Renderer2,private elementRef: ElementRef) {}
+  constructor(private http: HttpClient,
+              private renderer: Renderer2,
+              private elementRef: ElementRef,
+              public authService: AuthService) {}
   //constructor(private renderer: Renderer2) {}
  
   ngOnInit() {
