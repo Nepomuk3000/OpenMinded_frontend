@@ -1,11 +1,25 @@
+$header-height: 45px;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 50px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  height: $header-height;
+  background-color: darkgray;
+  
+  p {
+    margin-right: 10px;
+  }
+}
+
 .container {
     width : 95%;
     display: flex;
     justify-content: center;
+    margin-top: $header-height;
   }
-.header{
-  display: flex;
-  justify-content: space-between;
-  margin-left: 10px;
-  margin-right: 10px;
-}

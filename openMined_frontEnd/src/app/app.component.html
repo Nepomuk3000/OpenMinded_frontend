@@ -1,13 +1,11 @@
 
-<div class="header">
-    <app-navbar></app-navbar>
-    <p *ngIf="authService.isAuthenticated()">Logged in as : {{ authService.getUserName() }}</p>
-</div>
 <div style="display: flex; place-content: center;">
-
-
-<div class="container">   
-    <router-outlet></router-outlet>
+    <div class="header">
+        <app-navbar></app-navbar>
+        <p *ngIf="authService.isAuthenticated()">Logged in as : {{ authService.getUserName() }}</p>
+    </div>
+    <div class="container">   
+        <router-outlet></router-outlet>
+    </div>
 </div>
-
-</div>
+  
