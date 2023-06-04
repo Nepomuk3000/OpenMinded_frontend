@@ -2,17 +2,17 @@
     "Frontpage":"Accueil",
     "Details": "Détails",
     "Save": "Enregistrer",
-    "eMail": "Messagerie électronique",
+    "eMail": "eMail",
     "Firstname": "Prénom",
     "Lastname": "Nom",
     "French": "Français",
     "English": "Anglais",
-    "Signup": "Créer un compte",
     "Labels": "Labels",
     "Account": "Compte",
     "Language": "Langue",
     "Administration": "Administration",
     "Preferences": "Préférences",
-    "Gallery": "Gallerie"
+    "Gallery": "Gallerie",
+    "Sign-Up": "S'inscrire",
   }
   

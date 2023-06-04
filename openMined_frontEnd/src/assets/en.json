@@ -7,11 +7,11 @@
   "Lastname": "Lastname",
   "French": "French",
   "English": "English",
-  "Signup": "Signup",
   "Labels": "Labels",
   "Account": "Account",
   "Language": "Language",
   "Administration": "Administration",
   "Preferences": "Preferences",
-  "Gallery": "Gallery"
+  "Gallery": "Gallery",
+  "Sign-Up": "Sign-Up",
 }
