@@ -21,18 +21,23 @@ export class UsersGalleryComponent implements OnInit {
     this.loadComponentsIfNeeded();
   }
 
-  loadUsers(count:number,skip:number) {
-    this.userService.getUsers(count,this.lastLoadedUser).subscribe((users: User[]) => {
-      if (users.length == 0)
-      {
+  loadUsers(count: number, skip: number) {
+    this.userService.getUsers(count, this.lastLoadedUser).subscribe(
+      (users: User[]) => {
+        if (users.length === 0) {
+          this.noMoreUsers = true;
+        }
+        users.forEach(user => {
+          this.users.push(user);
+        });
+      },
+      (error: any) => {
         this.noMoreUsers=true;
       }
-      users.forEach(user => {
-        this.users.push(user);
-      });
-    });
+    );
     this.lastLoadedUser += count;
   }
+  
   
 
   @HostListener('window:resize', ['$event'])
