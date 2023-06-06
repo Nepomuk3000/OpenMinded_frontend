@@ -13,16 +13,6 @@
     align-items: center;
   }
 
-  .img-container img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 100%;
-    object-fit: contain;
-  }
-
   .username {
     position: absolute; 
     top: 0%; 
@@ -68,6 +58,7 @@
     width: 100%; /* La largeur souhaitée du conteneur */
     height: 5px; /* La hauteur des rectangles */
     margin-bottom: 10px; /* Espace entre les rectangles et le conteneur suivant */
+    margin-top: 10px; /* Espace entre les rectangles et le conteneur suivant */
     display: flex;
   }
   

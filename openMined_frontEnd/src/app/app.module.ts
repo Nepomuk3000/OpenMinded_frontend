@@ -30,6 +30,7 @@ import { ImageUploaderComponent } from './image-uploader/image-uploader.componen
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { LabelsListComponent } from './labels-tree/labels-list.component';
+import { ImageCardComponent } from './image-card/image-card.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { TranslocoRootModule } from './transloco-root.module';
@@ -52,7 +53,8 @@ import { AuthInterceptor } from '../interceptors/auth.interceptor';
     UsersFlowComponent,
     UsersGalleryComponent,
     ImageUploaderComponent,
-    NavbarComponent
+    NavbarComponent,
+    ImageCardComponent
   ],
   imports: [
     BrowserModule,

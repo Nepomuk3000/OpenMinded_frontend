@@ -17,7 +17,9 @@
 
         <mat-card-content>
           <div class="img-container" style="position: relative;">
-            <img mat-card-image [src]="image" alt="Photo"  (click)="handleImageClick($event)">
+            <div>
+              <app-image-card [imagesList]="imagesList"  (cptImageChange)="handleCptImageChange($event)"></app-image-card>
+            </div>
             <span class="username">{{ user.username }}</span>
             <ng-container *ngIf="!isEditable && hasAMouse && !hideNextPrecButtons">
               <button class="button left" type="button" (click)="handleLeftButtonClick()">    <mat-icon>keyboard_arrow_left</mat-icon></button>
