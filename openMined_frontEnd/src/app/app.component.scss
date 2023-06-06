@@ -1,3 +1,4 @@
+@import "../themes/light-theme.scss";
 $header-height: 45px;
 
 .header {
@@ -10,15 +11,19 @@ $header-height: 45px;
   width: 100%;
   z-index: 9999;
   height: $header-height;
-  background-color: darkgray;
-  
+  background-color: $header;
+  color:$headerFontColor;
+
   p {
     margin-right: 10px;
   }
 }
 
 .container {
-    width : 95%;
+    background-color: $background;
+    width : 100%;
+    padding-left: 2%;
+    padding-right: 2%;
     display: flex;
     justify-content: center;
     margin-top: $header-height;
