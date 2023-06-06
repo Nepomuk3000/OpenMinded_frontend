@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { serverUrl } from 'src/config';
 
 @Component({
   selector: 'app-image-uploader',
@@ -18,7 +19,7 @@ export class ImageUploaderComponent {
 
   uploadImage() {
     if (this.selectedFile && this.userId) {
-      const uploadUrl = `http://192.168.1.111:3000/api/user/${this.userId}/upload-image`;
+      const uploadUrl = serverUrl + `/api/user/${this.userId}/upload-image`;
       const formData: FormData = new FormData();
       formData.append('image', this.selectedFile, this.selectedFile.name);
 

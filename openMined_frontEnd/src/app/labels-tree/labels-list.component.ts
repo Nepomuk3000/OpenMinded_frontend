@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { Observer } from 'rxjs';
 import { AuthService } from 'src/services/auth-service';
+import { serverUrl } from 'src/config';
 
 @Component({
   selector: 'app-labels-list',
@@ -26,7 +27,7 @@ export class LabelsListComponent implements OnInit {
 
 
   showLabels(){
-    this.http.get<any>('http://192.168.1.111:3000/api/label').subscribe(data => {
+    this.http.get<any>(serverUrl + '/api/label').subscribe(data => {
       this.labels = data;
 
       this.labels.forEach(label => {
@@ -51,7 +52,7 @@ export class LabelsListComponent implements OnInit {
         }
       };
 
-      this.http.delete<any>('http://192.168.1.111:3000/api/label/'+id).subscribe(observer);
+      this.http.delete<any>(serverUrl + '/api/label/'+id).subscribe(observer);
     }
   }
   
@@ -71,7 +72,7 @@ export class LabelsListComponent implements OnInit {
     };
 
     let body :string= '{"title":"'+element.title+'","description":"'+element.description+'","category":"'+element.category+'","subcategory":"'+element.subcategory+'"}';
-    this.http.put<any>('http://192.168.1.111:3000/api/label/' + element._id,body, { headers: { 'Content-Type': 'application/json' } }).subscribe(observer);
+    this.http.put<any>(serverUrl + '/api/label/' + element._id,body, { headers: { 'Content-Type': 'application/json' } }).subscribe(observer);
   }
   
   onUpdateName(id: string, newTitle: HTMLInputElement) {
@@ -154,7 +155,7 @@ export class LabelsListComponent implements OnInit {
       };
 
       let body :string= '{"title":"New title","category":"' + category.value + '","subcategory":"' + subcategory.value + '"}';
-      this.http.post<any>('http://192.168.1.111:3000/api/label/',body, { headers: { 'Content-Type': 'application/json' } }).subscribe(observer);
+      this.http.post<any>(serverUrl + '/api/label/',body, { headers: { 'Content-Type': 'application/json' } }).subscribe(observer);
     }
   }
 

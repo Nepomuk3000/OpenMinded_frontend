@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth-service';
 import { Router } from '@angular/router';
+import { serverUrl } from '../../config';
 
 
 interface LoginResponse {
@@ -39,7 +40,7 @@ export class SignupFormComponent {
               private router: Router,) {}
 
   onSignup() {
-    this.http.post('http://192.168.1.111:3000/api/user/signup', this.model).subscribe(response => {
+    this.http.post(serverUrl + '/api/user/signup', this.model).subscribe(response => {
       console.log(response);
     });
   }
@@ -48,7 +49,7 @@ export class SignupFormComponent {
     this.model.username = form.value.username;
     this.model.password = form.value.password;
 
-     this.http.post<LoginResponse>('http://192.168.1.111:3000/api/user/login', this.model).subscribe(
+     this.http.post<LoginResponse>(serverUrl + '/api/user/login', this.model).subscribe(
        response => {
           // Succès de la requête (code de statut 200)
           this.authService.removeTokenAndUserId();

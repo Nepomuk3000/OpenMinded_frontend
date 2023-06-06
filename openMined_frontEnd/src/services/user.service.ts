@@ -4,12 +4,13 @@ import { Information, User } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { firstValueFrom } from 'rxjs';
+import { serverUrl } from '../config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://192.168.1.111:3000/api/user'; // Remplacez par votre URL d'API réelle
+  private apiUrl = serverUrl + '/api/user'; // Remplacez par votre URL d'API réelle
   constructor(private http: HttpClient) {}
 
 
