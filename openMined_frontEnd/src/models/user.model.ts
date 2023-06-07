@@ -37,4 +37,5 @@ export class User {
     userObject : User | undefined;
     visits : Visit [] = [];
     isAdmin:boolean = false;
+    rejectedUsers:number[] = [];
   }

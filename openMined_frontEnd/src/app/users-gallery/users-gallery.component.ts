@@ -21,6 +21,14 @@ export class UsersGalleryComponent implements OnInit {
     this.loadComponentsIfNeeded();
   }
 
+  rejectUser(user: User) {
+    const index = this.users.indexOf(user);
+    if (index !== -1) {
+      this.users.splice(index, 1);
+      this.loadComponentsIfNeeded();
+    }
+  }
+
   loadUsers(count: number, skip: number) {
     this.userService.getUsers(count, this.lastLoadedUser).subscribe(
       (users: User[]) => {

@@ -21,6 +21,7 @@ export class UserCardComponent implements OnInit {
   imagesList:string[] = [];
   @Output() nextUser: EventEmitter<any> = new EventEmitter();
   @Output() previousUser: EventEmitter<any> = new EventEmitter();
+  @Output() rejectUser: EventEmitter<any> = new EventEmitter<User>();
   showMore:boolean=false;
   hasAMouse:boolean=false;
 
@@ -107,6 +108,6 @@ export class UserCardComponent implements OnInit {
 
   handleRejectUser()
   {
-    console.log("TODO : Implémenter le rejet d'un utilisateur")
+    this.rejectUser.emit(this.user);
   }
 }

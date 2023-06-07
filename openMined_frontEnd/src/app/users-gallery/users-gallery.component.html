@@ -1,6 +1,7 @@
 <div class="users-gallery" #gallery>
     <ng-container *ngFor="let user of users" #card>
-      <app-user-card [user]="user" [hideNextPrecButtons]="true"></app-user-card>
+      <app-user-card [user]="user" [hideNextPrecButtons]="true" (rejectUser)="rejectUser(user)"></app-user-card>
+
     </ng-container>
   </div>
    
