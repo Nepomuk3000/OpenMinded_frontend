@@ -16,7 +16,7 @@ export class UserProfileComponent {
   constructor(private elementRef: ElementRef, private renderer: Renderer2, private userService: UserService) {}
 
   ngOnInit() {
-    this.userId = this.userService.getUserId() as string;
+    this.userId = this.userService.getCurrentUserId() as string;
     this.onResize();
   }
 

@@ -28,7 +28,7 @@ export class NavbarComponent {
 
   logout()
   {
-    this.userService.removeTokenAndUserId();
+    this.userService.removeCurrentUser();
     this.navigateTo('signup');
   }
 

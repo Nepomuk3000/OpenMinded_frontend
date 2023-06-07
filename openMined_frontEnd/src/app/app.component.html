@@ -2,7 +2,7 @@
 <div style="display: flex; place-content: center;">
     <div class="header">
         <app-navbar></app-navbar>
-        <p *ngIf="userService.isAuthenticated()">Logged in as : {{ userService.getUserName() }}</p>
+        <p *ngIf="userService.isAuthenticated()">Logged in as : {{ userService.getCurrentUserName() }}</p>
     </div>
     <div class="container">   
         <router-outlet></router-outlet>

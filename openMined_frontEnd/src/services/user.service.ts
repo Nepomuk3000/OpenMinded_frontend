@@ -141,35 +141,42 @@ export class UserService {
   }
 
   rejectUser(user: User) {
-      const currentUserId = String(this.getUserId());
+      const currentUserId = String(this.getCurrentUserId());
       this.getUser(currentUserId).subscribe((currentUser: User) => {
-        currentUser.rejectedUsers.push(user._id);
-        this.updateUser(currentUser,currentUser);
-        console.log(currentUser);
+        this.http.put<User>(this.apiUrl + "/" + currentUser._id + "/reject",user._id).subscribe(
+          (response) => {
+            console.log("La requête PUT a été effectuée avec succès !");
+            console.log(response);
+          },
+          (error) => {
+            console.log("La requête PUT a échoué !");
+            console.log(error);
+          }
+        )
       });
     }
   
 
-  async saveUserInfos(token: string,userId: string,userName: string) {
+  async storeCurrentUserLocaly(token: string,userId: string,userName: string) {
     localStorage.setItem(this.tokenKey, token);
     localStorage.setItem(this.userIdKey, userId);
     localStorage.setItem(this.userNameKey, userName);
     this.calculateIsAdmin();
   }
 
-  getToken(): string | null {
+  getCurrentUserToken(): string | null {
     return localStorage.getItem(this.tokenKey);
   }
 
-  getUserId(): string | null {
+  getCurrentUserId(): string | null {
     return localStorage.getItem(this.userIdKey);
   }
 
-  getUserName(): string | null {
+  getCurrentUserName(): string | null {
     return localStorage.getItem(this.userNameKey);
   }
 
-  removeTokenAndUserId(): void {
+  removeCurrentUser(): void {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.userIdKey);
     localStorage.removeItem(this.userNameKey);
@@ -178,15 +185,15 @@ export class UserService {
   }
 
   isAuthenticated(): boolean {
-    return this.getToken() !== null;
+    return this.getCurrentUserToken() !== null;
   }
 
-  isAdmin(): boolean {
+  isCurrentUserAdmin(): boolean {
     return this.bIsAdmin;
   }
 
   private calculateIsAdmin() {
-    const userId = this.getUserId();
+    const userId = this.getCurrentUserId();
     if (userId) {
       this.getUser(userId)
         .pipe(

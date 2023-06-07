@@ -52,15 +52,15 @@ export class SignupFormComponent {
      this.http.post<LoginResponse>(serverUrl + '/api/user/login', this.model).subscribe(
        response => {
           // Succès de la requête (code de statut 200)
-          this.userService.removeTokenAndUserId();
-          this.userService.saveUserInfos(response.token,response.userId,response.userName);
+          this.userService.removeCurrentUser();
+          this.userService.storeCurrentUserLocaly(response.token,response.userId,response.userName);
           this.setMessage("You are logged in");
           this.router.navigate(['/']);
         },
         error => {
           // Erreur de la requête (autre code de statut que 200)
           this.setMessage(error.message, MessageType.Error);
-          this.userService.removeTokenAndUserId();
+          this.userService.removeCurrentUser();
         }
     );
   }

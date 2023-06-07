@@ -9,7 +9,7 @@
     <button *ngIf="!userService.isAuthenticated()" mat-menu-item (click)="navigateTo('signup')">{{ 'Sign-Up' | transloco }} / {{ 'Sign-In' | transloco }} </button>
 
     <mat-menu [overlapTrigger]="false" #adminMenu="matMenu">
-      <button *ngIf="userService.isAdmin()" mat-menu-item (click)="navigateTo('labels')">{{ 'Labels' | transloco }}</button>
+      <button *ngIf="userService.isCurrentUserAdmin()" mat-menu-item (click)="navigateTo('labels')">{{ 'Labels' | transloco }}</button>
     </mat-menu>
 
 
@@ -20,7 +20,7 @@
       <button mat-menu-item (click)="changeLang('fr')">{{ 'French' | transloco }}</button>
     </mat-menu>
     <button mat-menu-item [matMenuTriggerFor]="languageMenu">{{ 'Language' | transloco }}</button>
-    <button *ngIf="userService.isAdmin()" mat-menu-item [matMenuTriggerFor]="adminMenu">{{ 'Administration' | transloco }}</button>
+    <button *ngIf="userService.isCurrentUserAdmin()" mat-menu-item [matMenuTriggerFor]="adminMenu">{{ 'Administration' | transloco }}</button>
     <button *ngIf="userService.isAuthenticated()" mat-menu-item (click)="logout()">{{ 'Logout' | transloco }}</button>
 
     

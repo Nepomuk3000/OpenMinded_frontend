@@ -9,7 +9,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.userService.isAuthenticated()) {
-      const token = this.userService.getToken();
+      const token = this.userService.getCurrentUserToken();
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`

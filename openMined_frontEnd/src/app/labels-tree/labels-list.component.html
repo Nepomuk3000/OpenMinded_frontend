@@ -60,10 +60,10 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let element">
-      <button *ngIf="userService.isAdmin()" mat-icon-button (click)="onUpdateLabel(element)">
+      <button *ngIf="userService.isCurrentUserAdmin()" mat-icon-button (click)="onUpdateLabel(element)">
         <mat-icon>save</mat-icon>
       </button>
-      <button *ngIf="userService.isAdmin()" mat-icon-button (click)="onDeleteLabel(element._id)">
+      <button *ngIf="userService.isCurrentUserAdmin()" mat-icon-button (click)="onDeleteLabel(element._id)">
         <mat-icon>delete</mat-icon>
       </button>
     </td>
