@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
-import { AuthService } from 'src/services/auth-service';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +11,7 @@ import { AuthService } from 'src/services/auth-service';
 export class NavbarComponent {
   constructor(private router: Router,
               private translocoService: TranslocoService,
-              public authService : AuthService) {
+              public userService : UserService) {
                 
     const lang = localStorage.getItem('lang') || 'en';
     this.changeLang(lang);
@@ -28,7 +28,7 @@ export class NavbarComponent {
 
   logout()
   {
-    this.authService.removeTokenAndUserId();
+    this.userService.removeTokenAndUserId();
     this.navigateTo('signup');
   }
 

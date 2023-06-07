@@ -37,7 +37,7 @@ import { TranslocoRootModule } from './transloco-root.module';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-import { AuthService } from '../services/auth-service';
+import { UserService } from 'src/services/user.service';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../interceptors/auth.interceptor';
@@ -78,7 +78,7 @@ import { AuthInterceptor } from '../interceptors/auth.interceptor';
     AppRoutingModule,
     TranslocoRootModule
   ],
-  providers: [AuthService,
+  providers: [UserService,
               {
                 provide: HTTP_INTERCEPTORS,
                 useClass: AuthInterceptor,

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
-import { AuthService } from '../../services/auth-service';
+import { UserService } from 'src/services/user.service';
 import { Router } from '@angular/router';
 import { serverUrl } from '../../config';
 
@@ -36,7 +36,7 @@ export class SignupFormComponent {
   messageClass: string = "";
 
   constructor(private http: HttpClient,
-              private authService: AuthService,
+              private userService: UserService,
               private router: Router,) {}
 
   onSignup() {
@@ -52,15 +52,15 @@ export class SignupFormComponent {
      this.http.post<LoginResponse>(serverUrl + '/api/user/login', this.model).subscribe(
        response => {
           // Succès de la requête (code de statut 200)
-          this.authService.removeTokenAndUserId();
-          this.authService.saveUserInfos(response.token,response.userId,response.userName);
+          this.userService.removeTokenAndUserId();
+          this.userService.saveUserInfos(response.token,response.userId,response.userName);
           this.setMessage("You are logged in");
           this.router.navigate(['/']);
         },
         error => {
           // Erreur de la requête (autre code de statut que 200)
           this.setMessage(error.message, MessageType.Error);
-          this.authService.removeTokenAndUserId();
+          this.userService.removeTokenAndUserId();
         }
     );
   }

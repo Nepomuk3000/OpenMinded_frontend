@@ -3,25 +3,25 @@
   </button>
   
   <mat-menu #menu="matMenu">
-    <button *ngIf="authService.isAuthenticated()" mat-menu-item (click)="navigateTo('')">{{ 'Frontpage' | transloco }}</button>
-    <button *ngIf="authService.isAuthenticated()" mat-menu-item (click)="navigateTo('random')">{{ 'Random' | transloco }}</button>
-    <!--<button *ngIf="authService.isAuthenticated()" mat-menu-item (click)="navigateTo('gallery')">{{ 'Gallery' | transloco }}</button>-->
-    <button *ngIf="!authService.isAuthenticated()" mat-menu-item (click)="navigateTo('signup')">{{ 'Sign-Up' | transloco }} / {{ 'Sign-In' | transloco }} </button>
+    <button *ngIf="userService.isAuthenticated()" mat-menu-item (click)="navigateTo('')">{{ 'Frontpage' | transloco }}</button>
+    <button *ngIf="userService.isAuthenticated()" mat-menu-item (click)="navigateTo('random')">{{ 'Random' | transloco }}</button>
+    <!--<button *ngIf="userService.isAuthenticated()" mat-menu-item (click)="navigateTo('gallery')">{{ 'Gallery' | transloco }}</button>-->
+    <button *ngIf="!userService.isAuthenticated()" mat-menu-item (click)="navigateTo('signup')">{{ 'Sign-Up' | transloco }} / {{ 'Sign-In' | transloco }} </button>
 
     <mat-menu [overlapTrigger]="false" #adminMenu="matMenu">
-      <button *ngIf="authService.isAdmin()" mat-menu-item (click)="navigateTo('labels')">{{ 'Labels' | transloco }}</button>
+      <button *ngIf="userService.isAdmin()" mat-menu-item (click)="navigateTo('labels')">{{ 'Labels' | transloco }}</button>
     </mat-menu>
 
 
-    <button *ngIf="authService.isAuthenticated()" mat-menu-item (click)="navigateTo('profile')">{{ 'Account' | transloco }}</button>
+    <button *ngIf="userService.isAuthenticated()" mat-menu-item (click)="navigateTo('profile')">{{ 'Account' | transloco }}</button>
     
     <mat-menu [overlapTrigger]="false" #languageMenu="matMenu">
       <button mat-menu-item (click)="changeLang('en')">{{ 'English' | transloco }}</button>
       <button mat-menu-item (click)="changeLang('fr')">{{ 'French' | transloco }}</button>
     </mat-menu>
     <button mat-menu-item [matMenuTriggerFor]="languageMenu">{{ 'Language' | transloco }}</button>
-    <button *ngIf="authService.isAdmin()" mat-menu-item [matMenuTriggerFor]="adminMenu">{{ 'Administration' | transloco }}</button>
-    <button *ngIf="authService.isAuthenticated()" mat-menu-item (click)="logout()">{{ 'Logout' | transloco }}</button>
+    <button *ngIf="userService.isAdmin()" mat-menu-item [matMenuTriggerFor]="adminMenu">{{ 'Administration' | transloco }}</button>
+    <button *ngIf="userService.isAuthenticated()" mat-menu-item (click)="logout()">{{ 'Logout' | transloco }}</button>
 
     
   </mat-menu>

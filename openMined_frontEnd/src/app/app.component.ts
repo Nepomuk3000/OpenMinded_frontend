@@ -1,5 +1,5 @@
 import { Component, HostListener, Renderer2, ElementRef, OnInit } from '@angular/core';
-import { AuthService } from 'src/services/auth-service';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ export class AppComponent implements OnInit{
   constructor(
     private renderer:Renderer2,
     private elementRef:ElementRef,
-    public authService: AuthService){}
+    public userService: UserService){}
 
   ngOnInit()
   {

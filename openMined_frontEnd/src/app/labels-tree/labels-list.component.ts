@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { Observer } from 'rxjs';
-import { AuthService } from 'src/services/auth-service';
+import { UserService } from 'src/services/user.service';
 import { serverUrl } from 'src/config';
 
 @Component({
@@ -18,7 +18,7 @@ export class LabelsListComponent implements OnInit {
   constructor(private http: HttpClient,
               private renderer: Renderer2,
               private elementRef: ElementRef,
-              public authService: AuthService) {}
+              public userService: UserService) {}
   //constructor(private renderer: Renderer2) {}
  
   ngOnInit() {

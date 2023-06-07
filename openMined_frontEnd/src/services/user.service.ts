@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Information, User } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
@@ -9,9 +9,20 @@ import { serverUrl } from '../config';
 @Injectable({
   providedIn: 'root',
 })
+
 export class UserService {
   private apiUrl = serverUrl + '/api/user'; // Remplacez par votre URL d'API réelle
-  constructor(private http: HttpClient) {}
+  private tokenKey = 'token';
+  private userIdKey = 'userId';
+  private userNameKey = 'userName';
+  private bIsAdmin = false;
+  @Output() newUserName: EventEmitter<String> = new EventEmitter();
+
+  constructor(private http: HttpClient){
+    setTimeout(() => { 
+      this.calculateIsAdmin();
+    }, 1); // ajustez le délai en fonction de vos besoins
+  }
 
 
 
@@ -127,6 +138,66 @@ export class UserService {
         return user;
       }
     );
+  }
+
+  rejectUser(user: User) {
+      const currentUserId = String(this.getUserId());
+      this.getUser(currentUserId).subscribe((currentUser: User) => {
+        currentUser.rejectedUsers.push(user._id);
+        this.updateUser(currentUser,currentUser);
+        console.log(currentUser);
+      });
+    }
+  
+
+  async saveUserInfos(token: string,userId: string,userName: string) {
+    localStorage.setItem(this.tokenKey, token);
+    localStorage.setItem(this.userIdKey, userId);
+    localStorage.setItem(this.userNameKey, userName);
+    this.calculateIsAdmin();
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem(this.tokenKey);
+  }
+
+  getUserId(): string | null {
+    return localStorage.getItem(this.userIdKey);
+  }
+
+  getUserName(): string | null {
+    return localStorage.getItem(this.userNameKey);
+  }
+
+  removeTokenAndUserId(): void {
+    localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem(this.userIdKey);
+    localStorage.removeItem(this.userNameKey);
+    this.bIsAdmin = false;
+    this.newUserName.emit("");
+  }
+
+  isAuthenticated(): boolean {
+    return this.getToken() !== null;
+  }
+
+  isAdmin(): boolean {
+    return this.bIsAdmin;
+  }
+
+  private calculateIsAdmin() {
+    const userId = this.getUserId();
+    if (userId) {
+      this.getUser(userId)
+        .pipe(
+          map(user => user.isAdmin)
+        )
+        .subscribe(isAdmin => {
+          this.bIsAdmin = isAdmin;
+        });
+    } else {
+      this.bIsAdmin = false;
+    }
   }
 }
 
