@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Renderer2, ElementRef,OnChanges, SimpleChanges, Output, EventEmitter  } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, Output, EventEmitter  } from '@angular/core';
 
 @Component({
   selector: 'app-image-card',
@@ -12,8 +12,7 @@ export class ImageCardComponent implements OnInit {
   @Input() imagesList:string[] = [];
   prevCptImage=0;
 
-  constructor(private renderer:Renderer2,
-              private elementRef:ElementRef) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
