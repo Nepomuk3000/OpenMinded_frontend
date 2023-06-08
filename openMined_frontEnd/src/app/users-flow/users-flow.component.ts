@@ -26,8 +26,9 @@ export class UsersFlowComponent implements OnInit {
   }
 
   @HostListener('window:resize', [])
-  onResize() {
-    this.renderer.setStyle(this.elementRef.nativeElement, 'width', window.innerWidth < 500 ? '95%' : '500px');
+  onResize() { 
+    const element=document.querySelector('.users-flow');
+    this.renderer.setStyle(element, 'width', window.innerWidth < 500/0.9 ? window.innerWidth * 0.90 + 'px' : '500px');
   }
   
 
