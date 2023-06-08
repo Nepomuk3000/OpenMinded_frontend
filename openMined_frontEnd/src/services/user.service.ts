@@ -72,14 +72,19 @@ export class UserService {
   }
   
   getUsers(count:number=10,skip:number=0): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl + "?count=" + String(count)+ "&skip=" + String(skip)).pipe(
-      map((users: User[]) => {
-        users.forEach(user => {
-          this.completeUser(user).subscribe((user:User)=>{});
-        });
-        return users;
-      })
-    );
+    if (this.isAuthenticated())
+    {
+      return this.http.get<User[]>(this.apiUrl + "?count=" + String(count)+ "&skip=" + String(skip)).pipe(
+        map((users: User[]) => {
+          users.forEach(user => {
+            this.completeUser(user).subscribe((user:User)=>{});
+          });
+          return users;
+        })
+      );
+    }
+    return of([]); // Retourne null si l'utilisateur n'est pas authentifié
+
   }
   
   getRandomUser(): Observable<User> {

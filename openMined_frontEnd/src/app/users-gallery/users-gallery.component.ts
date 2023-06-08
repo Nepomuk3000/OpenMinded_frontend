@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-users-gallery',
@@ -29,22 +30,35 @@ export class UsersGalleryComponent implements OnInit {
     }
   }
 
-  loadUsers(count: number, skip: number) {
-    this.userService.getUsers(count, this.lastLoadedUser).subscribe(
-      (users: User[]) => {
-        if (users.length === 0) {
-          this.noMoreUsers = true;
-        }
-        users.forEach(user => {
-          this.users.push(user);
-        });
-      },
-      (error: any) => {
-        this.noMoreUsers=true;
+
+  async loadUsers(count: number, skip: number) {
+    let loadedUsersCount = 0; // Variable pour suivre le nombre réel d'utilisateurs lus
+  
+    try {
+      console.log("users.length");
+      const users: User[] = await firstValueFrom(this.userService.getUsers(count, this.lastLoadedUser));
+      console.log("users");
+      loadedUsersCount = users.length; // Nombre réel d'utilisateurs lus
+      this.lastLoadedUser += users.length; // Mettre à jour la valeur de lastLoadedUser pour la prochaine requête
+  
+      if (users.length === 0) {
+        this.noMoreUsers = true;
       }
-    );
-    this.lastLoadedUser += count;
+      users.forEach(user => {
+        this.users.push(user);
+      });
+    } catch (error) {
+      this.noMoreUsers = true;
+      // Gérer l'erreur, par exemple afficher un message d'erreur ou effectuer d'autres actions nécessaires
+    }
+  
+    return loadedUsersCount; // Retourner le nombre réel d'utilisateurs lus
   }
+  
+  
+  
+  
+  
   
   
 
@@ -53,7 +67,7 @@ export class UsersGalleryComponent implements OnInit {
     this.loadComponentsIfNeeded();
   }
 
-  loadComponentsIfNeeded()
+  async loadComponentsIfNeeded()
   {    
     const windowHeight = window.innerHeight;
     const documentHeight = Math.max(
@@ -63,9 +77,9 @@ export class UsersGalleryComponent implements OnInit {
       document.documentElement.scrollHeight,
       document.documentElement.offsetHeight
     );
-    if (documentHeight <= window.scrollY + 2 * windowHeight && this.noMoreUsers == false) {
+    if (documentHeight <= window.scrollY + 2 * windowHeight && this.noMoreUsers == false && this.userService.isAuthenticated() == true) {
       // Charger les nouveaux composants
-      this.loadUsers(10,this.lastLoadedUser);
+      await this.loadUsers(10,this.lastLoadedUser);
 
       // Appeler la fonction de chargement à nouveau après un certain délai
       setTimeout(() => {
