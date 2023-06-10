@@ -12,11 +12,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
-import { MatMenuTrigger } from '@angular/material/menu';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatButtonModule} from '@angular/material/button';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,6 +30,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { LabelsListComponent } from './labels-tree/labels-list.component';
 import { ImageCardComponent } from './image-card/image-card.component';
+import { ChatComponent } from './chat/chat.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { TranslocoRootModule } from './transloco-root.module';
@@ -54,7 +54,8 @@ import { AuthInterceptor } from '../interceptors/auth.interceptor';
     UsersGalleryComponent,
     ImageUploaderComponent,
     NavbarComponent,
-    ImageCardComponent
+    ImageCardComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
