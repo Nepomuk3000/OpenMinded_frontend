@@ -7,11 +7,11 @@ import { serverUrl } from 'src/config';
 
 @Component({
   selector: 'app-labels-list',
-  templateUrl: './labels-list.component.html',
-  styleUrls: ['./labels-list.component.scss']
+  templateUrl: './labels-tree.component.html',
+  styleUrls: ['./labels-tree.component.scss']
 })
 
-export class LabelsListComponent implements OnInit {
+export class LabelsTreeComponent implements OnInit {
   labels: any[] = [];
   memorizedLabels = new Map();
   colonnesTableau: string[] = [ 'title','category','subcategory', 'description','actions'];
