@@ -10,7 +10,7 @@ import { UserService } from 'src/services/user.service';
   styleUrls: ['./user-button-bar.component.scss']
 })
 export class UserButtonBarComponent implements OnInit {
-  @Input() user:User = new User();
+  @Input() userId:string = "";
   @Output() likeUser: EventEmitter<any> = new EventEmitter();
   @Output() talkToUser: EventEmitter<any> = new EventEmitter();
   @Output() shareUser: EventEmitter<any> = new EventEmitter();
@@ -24,23 +24,26 @@ export class UserButtonBarComponent implements OnInit {
 
   handleLikeButtonClick()
   {
-    this.likeUser.emit();
+    this.userService.like(this.userId);
   }
-  handleTalkButtonClick()
-  {
-    this.talkToUser.emit();
-  }
-  handleShareButtonClick()
-  {
-    this.shareUser.emit();
-  }
+
   handleLoveButtonClick()
   {
-    this.loveUser.emit();
+    this.userService.love(this.userId);
   }
+
+  handleShareButtonClick()
+  {
+    console.log("TODO - UserButtonBarComponent : Implémenter handleShareButtonClick");
+  }
+
+  handleTalkToButtonClick()
+  {
+    console.log("TODO - UserButtonBarComponent : Implémenter handleTalkToButtonClick");
+  }
+
   handleRejectButtonClick()
   {
-    this.userService.rejectUser(this.user);
-    this.rejectUser.emit();
+    this.userService.reject(this.userId);
   }
 }

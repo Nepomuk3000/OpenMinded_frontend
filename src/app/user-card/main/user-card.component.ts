@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges, ElementRef, Renderer2, Output, EventEmitter   } from '@angular/core';
-import { User } from '../../models/user.model';
+import { User } from '../../../models/user.model';
 import { UserService } from 'src/services/user.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -110,30 +110,5 @@ export class UserCardComponent implements OnInit {
   handleShowMoreButtonClick()
   {
     this.showMore=!this.showMore;
-  }
-
-  handleLikeUser()
-  {
-    this.userService.like(this.userId);
-  }
-
-  handleLoveUser()
-  {
-    this.userService.love(this.userId);
-  }
-
-  handleTalkUser()
-  {
-    console.log("TODO - UserCardComponent : Implémenter handleTalkUser");
-  }
-
-  handleShareUser()
-  {
-    console.log("TODO - UserCardComponent : Implémenter handleShareUser");
-  }
-
-  handleRejectUser()
-  {
-    this.userService.reject(this.userId);
   }
 }

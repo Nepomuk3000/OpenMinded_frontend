@@ -28,6 +28,11 @@ export class UsersFlowComponent implements OnInit {
     this.onResize();
   }
 
+  navigateToUser(userId:string)
+  {
+    console.log("Oui c'est de la que ça part  : " + userId)
+  }
+
   loadUsers() {
 
     this.route.queryParams.subscribe(params => {

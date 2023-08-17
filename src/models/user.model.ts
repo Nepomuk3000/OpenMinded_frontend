@@ -16,9 +16,9 @@ export class Relationship {
     user : User | undefined;
 }
 
-export class Visit {
+export class Interaction {
     userId: string = "";
-    date : Date = new Date(1900,1,1);
+    dates : Date[] = [];
 }
 
 export class User {
@@ -35,7 +35,16 @@ export class User {
     profile:string="";
     dateOfBirth:Date=new Date();
     userObject : User | undefined;
-    visits : Visit [] = [];
     isAdmin:boolean = false;
     rejectedUsers:number[] = [];
+
+    visited : Interaction [] = [];
+    liked : Interaction [] = [];
+    loved : Interaction [] = [];
+    rejected : Interaction [] = [];
+
+    visitedBy : Interaction [] = [];
+    likedBy : Interaction [] = [];
+    loveedBy : Interaction [] = [];
+    rejectedBy : Interaction [] = [];
   }

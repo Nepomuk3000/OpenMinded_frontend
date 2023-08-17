@@ -20,8 +20,9 @@ import { MatMenuModule } from '@angular/material/menu';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { UserCardComponent } from './user-card/user-card.component';
-import { UserButtonBarComponent } from './user-button-bar/user-button-bar.component';
+import { UserCardComponent } from './user-card/main/user-card.component';
+import { UserButtonBarComponent } from './user-card/user-button-bar/user-button-bar.component';
+import { UserDetailsComponent } from './user-card/user-details/user-details.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { UsersFlowComponent } from './users-flow/users-flow.component';
 import { UsersGalleryComponent } from './users-gallery/users-gallery.component';
@@ -50,6 +51,7 @@ import { AuthInterceptor } from '../interceptors/auth.interceptor';
     LabelsListComponent,
     UserCardComponent,
     UserButtonBarComponent,
+    UserDetailsComponent,
     UsersFlowComponent,
     UsersGalleryComponent,
     ImageUploaderComponent,

@@ -1,0 +1,65 @@
+
+<div class="imageMarkersContaier">
+
+  <span *ngFor="let image of imagesList; let i = index; let isFirst = first" [ngClass]="'imageMark-' + i + ' ' + (isFirst ? 'imageMarkerUp' : 'imageMarkerDown')"></span>
+</div>
+
+
+<div class="user-card">
+  
+  <form #profileForm="ngForm" (ngSubmit)="onSave(profileForm)">
+    <mat-card class="card">
+
+        <!--mat-card-header> 
+          <mat-card-title>{{ user.username }}</mat-card-title>
+        </mat-card-header-->
+
+
+        <mat-card-content>
+          <div class="img-container" style="position: relative;">
+            <div>
+              <app-image-card [imagesList]="imagesList"  (cptImageChange)="handleCptImageChange($event)"></app-image-card>
+            </div>
+            <span class="username">{{ user.username }}</span>
+            <ng-container *ngIf="!isEditable && hasAMouse && !hideNextPrecButtons">
+              <button class="button previous" type="button" (click)="handlePreviousButtonClick()">    <mat-icon>keyboard_arrow_left</mat-icon></button>
+              <button class="button next" type="button" (click)="handleNextButtonClick()">    <mat-icon>keyboard_arrow_right</mat-icon></button>
+              <button class="button showMore" type="button" (click)="handleShowMoreButtonClick()">    <mat-icon>keyboard_arrow_down</mat-icon></button>
+            </ng-container>            
+            <ng-container *ngIf="hideNextPrecButtons">
+              <button class="button details" type="button" (click)="handleDetailsButtonClick(userId)">    <mat-icon>unfold_more</mat-icon></button>
+            </ng-container>  
+            
+            <ng-container *ngIf="!isEditable">
+              <mat-card-actions  class="buttonsBox">
+                <app-user-button-bar [userId]="userId">
+                </app-user-button-bar>
+              </mat-card-actions>
+            </ng-container>
+          </div>
+     <!-- 
+  <mat-accordion>
+
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                          (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        
+        <mat-panel-title><h3>{{'Details'|transloco}}</h3></mat-panel-title>
+      </mat-expansion-panel-header>
+    -->
+    
+    <ng-container  *ngIf="showMore">
+      <app-user-details [user]="user" [isEditable]="isEditable"></app-user-details>
+    </ng-container>
+          
+  </mat-card-content>
+</mat-card>
+</form>
+
+   <!--
+    </mat-expansion-panel>
+  </mat-accordion>
+  -->
+            
+
+</div>

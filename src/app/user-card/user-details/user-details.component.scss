@@ -1,0 +1,15 @@
+
+  
+  @import "../main/user-card.component.scss";
+  
+  .editable {
+    /* Styles CSS spécifiques pour le mode éditable */
+    color: black;
+    background-color: rgb(243, 243, 243);
+
+  }
+  
+  .notEditable {
+    pointer-events: none;
+    user-select: none;
+  }

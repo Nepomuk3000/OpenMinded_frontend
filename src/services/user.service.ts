@@ -143,24 +143,7 @@ export class UserService {
         return user;
       }
     );
-  }
-
-  rejectUser(user: User) {
-      const currentUserId = String(this.getCurrentUserId());
-      this.getUser(currentUserId).subscribe((currentUser: User) => {
-        this.http.put<User>(this.apiUrl + "/reject/" + currentUser._id,user._id).subscribe(
-          (response) => {
-            console.log("La requête PUT a été effectuée avec succès !");
-            console.log(response);
-          },
-          (error) => {
-            console.log("La requête PUT a échoué !");
-            console.log(error);
-          }
-        )
-      });
-    }
-  
+  }  
 
   async storeCurrentUserLocaly(token: string,userId: string,userName: string) {
     localStorage.setItem(this.tokenKey, token);
@@ -239,6 +222,20 @@ export class UserService {
 
   reject(userId:string) {
     console.log("TODO - UserService : Implémenter reject");
+    
+    const currentUserId = String(this.getCurrentUserId());
+    this.getUser(currentUserId).subscribe((currentUser: User) => {
+      this.http.put<User>(this.apiUrl + "/reject/" + currentUser._id,userId).subscribe(
+        (response) => {
+          console.log("La requête PUT a été effectuée avec succès !");
+          console.log(response);
+        },
+        (error) => {
+          console.log("La requête PUT a échoué !");
+          console.log(error);
+        }
+      )
+    });
   }
 
   private calculateIsAdmin() {

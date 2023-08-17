@@ -1,0 +1,52 @@
+
+<ng-container *ngFor="let info of user.informations">
+    <ng-container *ngIf="info.type=='Profile'">
+      <mat-form-field [ngClass]="editableOrNot()">                        
+        <mat-label>{{ info.type }}</mat-label>
+        <textarea matInput 
+          [readonly]="!isEditable" 
+          [ngClass]="editableOrNot()"
+          [name]="'info_' + info.type"
+          [(ngModel)]="info.text" 
+          (keydown.space)="$event.stopPropagation()">
+        </textarea>
+      </mat-form-field>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="isEditable">
+    <mat-form-field  [ngClass]="editableOrNot()">
+      <input matInput placeholder="{{'Lastname'|transloco}}"  [(ngModel)]="user.lastname" name="lastname">
+    </mat-form-field>
+    <mat-form-field [ngClass]="editableOrNot()">
+      <input matInput placeholder="{{'Firstname'|transloco}}" [(ngModel)]="user.firstname" name="firstname">
+    </mat-form-field>
+    <mat-form-field [ngClass]="editableOrNot()">
+      <input matInput placeholder="{{'eMail'|transloco}}"  [(ngModel)]="user.eMail" name="eMail">
+    </mat-form-field>
+
+  </ng-container>
+
+  <ng-container *ngFor="let relationship of user.relationships">
+    <mat-form-field [ngClass]="editableOrNot()">
+      <input matInput placeholder="{{ relationship.type }} to" value="{{ relationship.user?.username }}">
+    </mat-form-field>
+  </ng-container>
+
+  <ng-container *ngFor="let info of user.informations">
+    <ng-container *ngIf="info.type!='Profile'">
+      <mat-form-field [ngClass]="editableOrNot()">                        
+        <mat-label>{{ info.type }}</mat-label>
+        <textarea matInput 
+          [readonly]="!isEditable" 
+          [ngClass]="editableOrNot()"
+          [name]="'info_' + info.type"
+          [(ngModel)]="info.text" 
+          (keydown.space)="$event.stopPropagation()">
+        </textarea>
+      </mat-form-field>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="isEditable">
+    <button mat-raised-button type="submit" color="primary">{{'Save'|transloco}}</button>
+  </ng-container>
