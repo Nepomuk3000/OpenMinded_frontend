@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 
-import { UserCardComponent } from './user-card/user-card.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { UsersFlowComponent } from './users-flow/users-flow.component';
 import { UsersGalleryComponent } from './users-gallery/users-gallery.component';
