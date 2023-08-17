@@ -40,7 +40,7 @@ import { TranslocoRootModule } from './transloco-root.module';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-import { UserService } from 'src/services/user.service';
+import { UserService } from '../services/user.service';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../interceptors/auth.interceptor';

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
-import { UserService } from 'src/services/user.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-navbar',

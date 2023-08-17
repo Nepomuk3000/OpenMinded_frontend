@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, SimpleChanges, ElementRef, Renderer2, Output, EventEmitter   } from '@angular/core';
 import { User } from '../../../models/user.model';
-import { UserService } from 'src/services/user.service';
+import { UserService } from '../../../services/user.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
