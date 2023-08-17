@@ -19,7 +19,7 @@ export class UserCardComponent implements OnInit {
   prevCptImage=0;
   imagesList:string[] = [];
   @Output() nextUser: EventEmitter<any> = new EventEmitter();
-  @Output() previousUser: EventEmitter<any> = new EventEmitter();
+  @Output() navigateToUser: EventEmitter<any> = new EventEmitter();
   @Output() rejectUser: EventEmitter<any> = new EventEmitter<User>();
   showMore:boolean=false;
   hasAMouse:boolean=false;
@@ -93,24 +93,47 @@ export class UserCardComponent implements OnInit {
     }
   }
 
-  handleRightButtonClick()
+  handleNextButtonClick()
   {
     this.nextUser.emit();
   }
 
+  handlePreviousButtonClick()
+  {
+  }
 
   handleDetailsButtonClick(userId: string)
   {
     this.router.navigate(['/random'], { queryParams: { userId } });
   }
 
-  handleDownButtonClick()
+  handleShowMoreButtonClick()
   {
     this.showMore=!this.showMore;
   }
 
+  handleLikeUser()
+  {
+    this.userService.like(this.userId);
+  }
+
+  handleLoveUser()
+  {
+    this.userService.love(this.userId);
+  }
+
+  handleTalkUser()
+  {
+    console.log("TODO - UserCardComponent : Implémenter handleTalkUser");
+  }
+
+  handleShareUser()
+  {
+    console.log("TODO - UserCardComponent : Implémenter handleShareUser");
+  }
+
   handleRejectUser()
   {
-    this.rejectUser.emit(this.user);
+    this.userService.reject(this.userId);
   }
 }

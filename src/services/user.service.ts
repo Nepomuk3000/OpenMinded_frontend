@@ -233,6 +233,14 @@ export class UserService {
 
   }
 
+  love(userId:string) {
+    console.log("TODO - UserService : Implémenter love");
+  }
+
+  reject(userId:string) {
+    console.log("TODO - UserService : Implémenter reject");
+  }
+
   private calculateIsAdmin() {
     const userId = this.getCurrentUserId();
     if (userId) {
