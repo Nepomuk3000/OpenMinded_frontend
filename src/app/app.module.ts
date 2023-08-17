@@ -17,6 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTreeModule } from '@angular/material/tree';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -30,6 +31,7 @@ import { ImageUploaderComponent } from './image-uploader/image-uploader.componen
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { LabelsTreeComponent } from './labels-tree/labels-tree.component';
+import { TreeNodeComponent } from './tree-node/tree-node.component';
 import { ImageCardComponent } from './image-card/image-card.component';
 import { ChatComponent } from './chat/chat.component';
 
@@ -49,6 +51,7 @@ import { AuthInterceptor } from '../interceptors/auth.interceptor';
     UserProfileComponent,
     SignupFormComponent,
     LabelsTreeComponent,
+    TreeNodeComponent,
     UserCardComponent,
     UserButtonBarComponent,
     UserDetailsComponent,
@@ -76,6 +79,7 @@ import { AuthInterceptor } from '../interceptors/auth.interceptor';
     MatCardModule,
     MatExpansionModule,
     MatMenuModule,
+    MatTreeModule,
 
     BrowserAnimationsModule,
     AppRoutingModule,

@@ -1,40 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ElementRef, Renderer2, ViewChild } from '@angular/core';
-import { Observer } from 'rxjs';
+import { Observable , Observer, of } from 'rxjs';
 import { UserService } from 'src/services/user.service';
 import { serverUrl } from 'src/config';
+import { TreeNodeComponent } from '../tree-node/tree-node.component';
 
 @Component({
   selector: 'app-labels-list',
   templateUrl: './labels-tree.component.html',
   styleUrls: ['./labels-tree.component.scss']
 })
-
+ 
 export class LabelsTreeComponent implements OnInit {
-  labels: any[] = [];
+  root$: Observable<any> = of(null);
   memorizedLabels = new Map();
+  folded = true;
   colonnesTableau: string[] = [ 'title','category','subcategory', 'description','actions'];
   constructor(private http: HttpClient,
               private renderer: Renderer2,
               private elementRef: ElementRef,
               public userService: UserService) {}
-  //constructor(private renderer: Renderer2) {}
  
   ngOnInit() {
     this.showLabels();
   }
 
-
   showLabels(){
-    this.http.get<any>(serverUrl + '/api/label').subscribe(data => {
-      this.labels = data;
-
-      this.labels.forEach(label => {
-        this.memorizedLabels.set(label._id,label);
-      });
-
-    });
+    this.root$ = this.http.get<any>(serverUrl + '/api/label');
+  }
+  
+  toggleFoldable() {
+    this.folded = !this.folded;
   }
 
   onDeleteLabel(id: string) {
@@ -126,12 +123,13 @@ export class LabelsTreeComponent implements OnInit {
   }
 
   checkNeedUpdate() {
-    let ret : boolean = false;
+    let ret : boolean = false
+    /*
     this.labels.forEach(label => {
       if(label['needUpdate']==true){
         ret=true;
       }
-    });
+    });*/
     return ret;
   }
 
