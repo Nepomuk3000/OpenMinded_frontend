@@ -88,7 +88,7 @@ export class UserService {
   }
   
   getRandomUser(): Observable<User> {
-    return this.http.get<User>(this.apiUrl + "/random/" + "642321cb49eeca71081ab7b4").pipe(
+    return this.http.get<User>(this.apiUrl + "/random").pipe(
       map((user: User) => {
           this.completeUser(user).subscribe((user:User)=>{});
         return user;
@@ -148,7 +148,7 @@ export class UserService {
   rejectUser(user: User) {
       const currentUserId = String(this.getCurrentUserId());
       this.getUser(currentUserId).subscribe((currentUser: User) => {
-        this.http.put<User>(this.apiUrl + "/" + currentUser._id + "/reject",user._id).subscribe(
+        this.http.put<User>(this.apiUrl + "/reject/" + currentUser._id,user._id).subscribe(
           (response) => {
             console.log("La requête PUT a été effectuée avec succès !");
             console.log(response);
