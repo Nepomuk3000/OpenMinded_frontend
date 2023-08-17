@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { Observable , Observer, of } from 'rxjs';
-import { UserService } from 'src/services/user.service';
-import { serverUrl } from 'src/config';
+import { UserService } from '../../services/user.service';
+import { serverUrl } from '../../config';
 import { TreeNodeComponent } from '../tree-node/tree-node.component';
 
 @Component({
