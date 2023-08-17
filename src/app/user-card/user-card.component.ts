@@ -1,9 +1,8 @@
-import { Component, Input, OnInit, SimpleChanges, ElementRef, Renderer2, Output, EventEmitter, NgModule   } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, ElementRef, Renderer2, Output, EventEmitter   } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UserService } from 'src/services/user.service';
-import { FormsModule } from '@angular/forms';
 import { NgForm } from '@angular/forms';
-import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-card',
@@ -25,14 +24,17 @@ export class UserCardComponent implements OnInit {
   showMore:boolean=false;
   hasAMouse:boolean=false;
 
-  editableOrNot(): string {
-    return this.isEditable ? 'editable' : 'notEditable';
-  }
-
-  constructor(private userService:UserService, private elementRef:ElementRef, private renderer:Renderer2){}
+  constructor(private userService:UserService, 
+    private elementRef:ElementRef, 
+    private renderer:Renderer2,
+    private router: Router){}
 
   ngOnInit() {
     this.hasAMouse = !('ontouchstart' in window) || navigator.maxTouchPoints === 0;
+    if (this.isEditable)
+    {
+      this.showMore = true;
+    }
   }
 
   handleCptImageChange(cptImage: number)
@@ -96,9 +98,10 @@ export class UserCardComponent implements OnInit {
     this.nextUser.emit();
   }
 
-  handleLeftButtonClick()
+
+  handleDetailsButtonClick(userId: string)
   {
-    this.previousUser.emit();
+    this.router.navigate(['/random'], { queryParams: { userId } });
   }
 
   handleDownButtonClick()

@@ -22,10 +22,9 @@
             </div>
             <span class="username">{{ user.username }}</span>
             <ng-container *ngIf="!isEditable && hasAMouse && !hideNextPrecButtons">
-              <button class="button left" type="button" (click)="handleLeftButtonClick()">    <mat-icon>keyboard_arrow_left</mat-icon></button>
-              <button class="button right" type="button" (click)="handleRightButtonClick()">    <mat-icon>keyboard_arrow_right</mat-icon></button>
-            </ng-container>
-            <button class="button down" type="button" (click)="handleDownButtonClick()">    <mat-icon>keyboard_arrow_down</mat-icon></button>
+            <ng-container *ngIf="hideNextPrecButtons">
+              <button class="button details" type="button" (click)="handleDetailsButtonClick(userId)">    <mat-icon>unfold_more</mat-icon></button>
+            </ng-container>  
             
             <ng-container *ngIf="!isEditable">
               <mat-card-actions  class="buttonsBox">

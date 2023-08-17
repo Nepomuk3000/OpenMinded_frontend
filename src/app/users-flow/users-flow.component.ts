@@ -1,6 +1,8 @@
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { Component, OnInit, HostListener, ElementRef, Renderer2  } from '@angular/core';
+import { ActivatedRoute, Router  } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-users-flow',
@@ -11,17 +13,37 @@ import { Component, OnInit, HostListener, ElementRef, Renderer2  } from '@angula
 export class UsersFlowComponent implements OnInit {
   
   userId: string = "";
+  paramsUsed: boolean = false;
   
-  constructor(private userService: UserService , private elementRef: ElementRef, private renderer: Renderer2) {}
+  constructor(private userService: UserService , 
+    private elementRef: ElementRef, 
+    private renderer: Renderer2,
+    private route: ActivatedRoute,
+    private router: Router,
+    private location: Location) {}
 
   ngOnInit() {
+    this.route.snapshot.queryParams = {};
     this.loadUsers();
     this.onResize();
   }
 
   loadUsers() {
-    this.userService.getRandomUser().subscribe((user: User) => {
-      this.userId = String(user._id);
+
+    this.route.queryParams.subscribe(params => {
+      if (params['userId'] && this.paramsUsed == false) {
+        this.userId = params['userId'];
+        this.location.replaceState(this.location.path().split('?')[0], '');
+        this.paramsUsed = true;
+        if (this.userService.getCurrentUserId() as string != this.userId)
+        {
+          this.userService.addVisit(this.userId);
+        }
+      } else {
+        this.userService.getRandomUser().subscribe((user: User) => {
+          this.userId = String(user._id);
+        });      
+      }
     });
   }
 

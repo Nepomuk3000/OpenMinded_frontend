@@ -100,7 +100,12 @@
     right: 10px; /* ajustez la position horizontale de la flèche droite */
   }
   
-  .down {
+  .details {
+    position: absolute;
+    right: 1%; /* ajustez la position horizontale de la flèche droite */
+    top: 1%;
+  }
+  
     position: absolute;
     right: 10px; /* ajustez la position horizontale de la flèche droite */
     top: 95%;

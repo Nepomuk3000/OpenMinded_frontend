@@ -181,6 +181,19 @@ export class UserService {
     return localStorage.getItem(this.userNameKey);
   }
 
+  addVisit(userId: string): void {
+    this.http.put<User>(this.apiUrl + "/visited/" + userId,"").subscribe(
+      (response) => {
+        console.log("Visite ajoutée avec succès !");
+        console.log(response);
+      },
+      (error) => {
+        console.log("Erreur lors de l'ajout de la visite !");
+        console.log(error);
+      }
+    )
+  }
+
   removeCurrentUser(): void {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.userIdKey);
@@ -195,6 +208,29 @@ export class UserService {
 
   isCurrentUserAdmin(): boolean {
     return this.bIsAdmin;
+  }
+
+  like(userId:string) {
+    this.getUser(userId).subscribe((user: User) => {
+      console.log("UserService : " + this.getCurrentUserName() + " likes " + user.username);
+    });
+
+
+
+    const currentUserId = String(this.getCurrentUserId());
+    this.getUser(currentUserId).subscribe((currentUser: User) => {
+      this.http.put<User>(this.apiUrl + "/like/" + userId,userId).subscribe(
+        (response) => {
+          console.log("La requête PUT a été effectuée avec succès !");
+          console.log(response);
+        },
+        (error) => {
+          console.log("La requête PUT a échoué !");
+          console.log(error);
+        }
+      )
+    });
+
   }
 
   private calculateIsAdmin() {
