@@ -28,5 +28,9 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "include": [
+    // Other included files and directories
+    "src/app/transloco-root.module.ts"
+  ]
 }
