@@ -17,7 +17,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatTreeModule } from '@angular/material/tree';
+
+import { TreeModule } from 'primeng/tree';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -79,7 +80,8 @@ import { AuthInterceptor } from '../interceptors/auth.interceptor';
     MatCardModule,
     MatExpansionModule,
     MatMenuModule,
-    MatTreeModule,
+
+    TreeModule,
 
     BrowserAnimationsModule,
     AppRoutingModule,

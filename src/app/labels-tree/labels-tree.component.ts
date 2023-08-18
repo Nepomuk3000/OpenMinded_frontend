@@ -6,6 +6,8 @@ import { UserService } from '../../services/user.service';
 import { serverUrl } from '../../config';
 import { TreeNodeComponent } from '../tree-node/tree-node.component';
 
+import { TreeNode } from 'primeng/api';
+
 @Component({
   selector: 'app-labels-list',
   templateUrl: './labels-tree.component.html',
@@ -13,25 +15,47 @@ import { TreeNodeComponent } from '../tree-node/tree-node.component';
 })
  
 export class LabelsTreeComponent implements OnInit {
-  root$: Observable<any> = of(null);
+  root: string = "";
+  pRoot: TreeNode[] = [];
   memorizedLabels = new Map();
-  folded = true;
-  colonnesTableau: string[] = [ 'title','category','subcategory', 'description','actions'];
   constructor(private http: HttpClient,
               private renderer: Renderer2,
               private elementRef: ElementRef,
               public userService: UserService) {}
  
-  ngOnInit() {
-    this.showLabels();
+  async ngOnInit() {
+    await this.showLabels();
+    console.log("Et voilà")
   }
 
-  showLabels(){
-    this.root$ = this.http.get<any>(serverUrl + '/api/label');
+
+  convertToTreeNode(obj: any): TreeNode[] {
+    const treeNodes: TreeNode[] = [];
+    if (Array.isArray(obj))
+    {
+      obj.forEach((item: any) => {
+        const treeNode: TreeNode = {
+          label: item.title,
+          data: item.description,
+          children: []
+        };
+    
+        if (item.children && item.children.length > 0) {
+          treeNode.children = this.convertToTreeNode(item.children);
+        }    
+        treeNodes.push(treeNode);
+      });
+    }
+    return treeNodes;
   }
   
-  toggleFoldable() {
-    this.folded = !this.folded;
+  async showLabels() {
+    try {
+      const response = await this.http.get<any>(serverUrl + '/api/label').toPromise();
+      this.pRoot = this.convertToTreeNode(response.children); // Supposons que les nœuds sont dans une propriété "nodes"
+    } catch (error) {
+      console.error('Une erreur s\'est produite :', error);
+    }
   }
 
   onDeleteLabel(id: string) {

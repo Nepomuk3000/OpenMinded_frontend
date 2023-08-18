@@ -5,7 +5,7 @@
     <div class="title" (click)="toggleFoldable()">{{ node.title }}</div>
     <div class="description">{{ node.description }}</div>
     <div *ngIf="!folded" class="children">
-        <app-tree-node *ngFor="let child of node.children" [node]="child"></app-tree-node>
+       <!-- <app-tree-node *ngFor="let child of node.children" [node]="child"></app-tree-node>-->
     </div>
   </div>
    
