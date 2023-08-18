@@ -19,6 +19,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { TreeModule } from 'primeng/tree';
+import { TreeTableModule } from 'primeng/treetable';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -82,6 +83,7 @@ import { AuthInterceptor } from '../interceptors/auth.interceptor';
     MatMenuModule,
 
     TreeModule,
+    TreeTableModule,
 
     BrowserAnimationsModule,
     AppRoutingModule,

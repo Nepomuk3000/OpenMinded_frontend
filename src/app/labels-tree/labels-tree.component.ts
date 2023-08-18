@@ -17,6 +17,7 @@ import { TreeNode } from 'primeng/api';
 export class LabelsTreeComponent implements OnInit {
   root: string = "";
   pRoot: TreeNode[] = [];
+  cols: any[] = [];
   memorizedLabels = new Map();
   constructor(private http: HttpClient,
               private renderer: Renderer2,
@@ -24,8 +25,14 @@ export class LabelsTreeComponent implements OnInit {
               public userService: UserService) {}
  
   async ngOnInit() {
+    this.cols = [
+      { field: 'title', header: 'Title' },
+      { field: 'description', header: 'description' }
+  ];
+
     await this.showLabels();
     console.log("Et voilà")
+
   }
 
 
@@ -36,13 +43,18 @@ export class LabelsTreeComponent implements OnInit {
       obj.forEach((item: any) => {
         const treeNode: TreeNode = {
           label: item.title,
-          data: item.description,
-          children: []
+          data: {title:item.title,description:item.description},
+          children: [],
+          leaf:false
         };
     
         if (item.children && item.children.length > 0) {
           treeNode.children = this.convertToTreeNode(item.children);
         }    
+        else
+        {
+          treeNode.leaf = true;
+        }
         treeNodes.push(treeNode);
       });
     }
@@ -53,6 +65,7 @@ export class LabelsTreeComponent implements OnInit {
     try {
       const response = await this.http.get<any>(serverUrl + '/api/label').toPromise();
       this.pRoot = this.convertToTreeNode(response.children); // Supposons que les nœuds sont dans une propriété "nodes"
+      console.log(this.pRoot)
     } catch (error) {
       console.error('Une erreur s\'est produite :', error);
     }
