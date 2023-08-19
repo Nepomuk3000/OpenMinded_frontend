@@ -35,9 +35,7 @@ export class UsersGalleryComponent implements OnInit {
     let loadedUsersCount = 0; // Variable pour suivre le nombre réel d'utilisateurs lus
   
     try {
-      console.log("users.length");
       const users: User[] = await firstValueFrom(this.userService.getUsers(count, this.lastLoadedUser));
-      console.log("users");
       loadedUsersCount = users.length; // Nombre réel d'utilisateurs lus
       this.lastLoadedUser += users.length; // Mettre à jour la valeur de lastLoadedUser pour la prochaine requête
   

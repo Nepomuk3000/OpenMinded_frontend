@@ -20,6 +20,8 @@ import { MatMenuModule } from '@angular/material/menu';
 
 import { TreeModule } from 'primeng/tree';
 import { TreeTableModule } from 'primeng/treetable';
+import { TabViewModule } from 'primeng/tabview';
+import { ButtonModule } from 'primeng/button';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -33,7 +35,6 @@ import { ImageUploaderComponent } from './image-uploader/image-uploader.componen
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { LabelsTreeComponent } from './labels-tree/labels-tree.component';
-import { TreeNodeComponent } from './tree-node/tree-node.component';
 import { ImageCardComponent } from './image-card/image-card.component';
 import { ChatComponent } from './chat/chat.component';
 
@@ -53,7 +54,6 @@ import { AuthInterceptor } from '../interceptors/auth.interceptor';
     UserProfileComponent,
     SignupFormComponent,
     LabelsTreeComponent,
-    TreeNodeComponent,
     UserCardComponent,
     UserButtonBarComponent,
     UserDetailsComponent,
@@ -84,6 +84,8 @@ import { AuthInterceptor } from '../interceptors/auth.interceptor';
 
     TreeModule,
     TreeTableModule,
+    TabViewModule,
+    ButtonModule,
 
     BrowserAnimationsModule,
     AppRoutingModule,

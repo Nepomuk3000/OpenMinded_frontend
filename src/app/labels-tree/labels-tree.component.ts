@@ -4,7 +4,6 @@ import { ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { Observable , Observer, of } from 'rxjs';
 import { UserService } from '../../services/user.service';
 import { serverUrl } from '../../config';
-import { TreeNodeComponent } from '../tree-node/tree-node.component';
 
 import { TreeNode } from 'primeng/api';
 
@@ -19,6 +18,11 @@ export class LabelsTreeComponent implements OnInit {
   pRoot: TreeNode[] = [];
   cols: any[] = [];
   memorizedLabels = new Map();
+  
+  activeTabIndex = 0; // Index de l'onglet actif
+  numberOfTabs = 0;
+
+  
   constructor(private http: HttpClient,
               private renderer: Renderer2,
               private elementRef: ElementRef,
@@ -27,11 +31,17 @@ export class LabelsTreeComponent implements OnInit {
   async ngOnInit() {
     this.cols = [
       { field: 'title', header: 'Title' },
-      { field: 'description', header: 'description' }
+      { field: 'description', header: 'Description' }
   ];
+  if (this.userService.isCurrentUserAdmin())
+  {
+    this.cols.push(
+      { field: 'actions', header: 'Actions' })
+  }
+
 
     await this.showLabels();
-    console.log("Et voilà")
+    console.log(this.cols)
 
   }
 
@@ -65,11 +75,44 @@ export class LabelsTreeComponent implements OnInit {
     try {
       const response = await this.http.get<any>(serverUrl + '/api/label').toPromise();
       this.pRoot = this.convertToTreeNode(response.children); // Supposons que les nœuds sont dans une propriété "nodes"
-      console.log(this.pRoot)
+      this.numberOfTabs = this.pRoot.length;
     } catch (error) {
       console.error('Une erreur s\'est produite :', error);
     }
   }
+
+  handleEditButtonClick(rowNode: any) {
+    // Cette fonction sera appelée lorsque le bouton est cliqué.
+    // Vous pouvez utiliser rowNode pour accéder aux données du nœud correspondant.
+    console.log('Bouton d\'édition cliqué pour le nœud:', rowNode.node.label);
+    
+    // Vous pouvez également effectuer d'autres actions en fonction du nœud cliqué.
+    // Par exemple, ouvrir une boîte de dialogue, déclencher une action, etc.
+  }
+
+  handleDeleteButtonClick(rowNode: any) {
+    // Cette fonction sera appelée lorsque le bouton est cliqué.
+    // Vous pouvez utiliser rowNode pour accéder aux données du nœud correspondant.
+    console.log('Bouton de suppression cliqué pour le nœud:', rowNode.node.label);
+    
+    // Vous pouvez également effectuer d'autres actions en fonction du nœud cliqué.
+    // Par exemple, ouvrir une boîte de dialogue, déclencher une action, etc.
+  }
+  
+
+  handlePreviousButtonClick(){
+    this.activeTabIndex--;
+    if (this.activeTabIndex < 0)
+    {
+      this.activeTabIndex = this.numberOfTabs - 1
+    }
+  }
+
+  handleNextButtonClick(){
+      this.activeTabIndex++;
+      this.activeTabIndex%= this.numberOfTabs
+  }
+
 
   onDeleteLabel(id: string) {
     if (confirm('Voulez-vous vraiment supprimer le label "' + this.memorizedLabels.get(id).title + '" ?')) {   
@@ -86,7 +129,7 @@ export class LabelsTreeComponent implements OnInit {
         }
       };
 
-      this.http.delete<any>(serverUrl + '/api/label/'+id).subscribe(observer);
+      this.http.delete<any>(serverUrl + '/api/label/'+ id).subscribe(observer);
     }
   }
   
