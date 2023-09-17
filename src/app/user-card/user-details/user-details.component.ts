@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Information, User } from '../../../models/user.model';
 import { User } from '../../../models/user.model';
 
 @Component({
@@ -19,6 +20,14 @@ export class UserDetailsComponent implements OnInit {
 
   editableOrNot(): string {
     return this.isEditable ? 'editable' : 'notEditable';
+  }
+
+  addInfo(): void {
+    this.user.informations.push(new Information())
+  }
+  
+  removeInfo(index:number): void {
+    this.user.informations.splice(index,1)
   }
 
 }

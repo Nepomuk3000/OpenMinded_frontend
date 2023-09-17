@@ -1,52 +1,64 @@
 
-<ng-container *ngFor="let info of user.informations">
-    <ng-container *ngIf="info.type=='Profile'">
-      <mat-form-field [ngClass]="editableOrNot()">                        
-        <mat-label>{{ info.type }}</mat-label>
-        <textarea matInput 
-          [readonly]="!isEditable" 
-          [ngClass]="editableOrNot()"
-          [name]="'info_' + info.type"
-          [(ngModel)]="info.text" 
-          (keydown.space)="$event.stopPropagation()">
-        </textarea>
-      </mat-form-field>
-    </ng-container>
-  </ng-container>
-  <ng-container *ngIf="isEditable">
-    <mat-form-field  [ngClass]="editableOrNot()">
-      <input matInput placeholder="{{'Lastname'|transloco}}"  [(ngModel)]="user.lastname" name="lastname">
-    </mat-form-field>
-    <mat-form-field [ngClass]="editableOrNot()">
-      <input matInput placeholder="{{'Firstname'|transloco}}" [(ngModel)]="user.firstname" name="firstname">
-    </mat-form-field>
-    <mat-form-field [ngClass]="editableOrNot()">
-      <input matInput placeholder="{{'eMail'|transloco}}"  [(ngModel)]="user.eMail" name="eMail">
-    </mat-form-field>
 
-  </ng-container>
-
-  <ng-container *ngFor="let relationship of user.relationships">
-    <mat-form-field [ngClass]="editableOrNot()">
-      <input matInput placeholder="{{ relationship.type }} to" value="{{ relationship.user?.username }}">
-    </mat-form-field>
-  </ng-container>
-
+<!-- TODO ne pas éditer si l'utilisateur n'est pas lcelui qui est connecté -->
+<div style="width:100%">
+  <!-- Affichage des informations du profil -->
   <ng-container *ngFor="let info of user.informations">
-    <ng-container *ngIf="info.type!='Profile'">
-      <mat-form-field [ngClass]="editableOrNot()">                        
-        <mat-label>{{ info.type }}</mat-label>
-        <textarea matInput 
-          [readonly]="!isEditable" 
-          [ngClass]="editableOrNot()"
-          [name]="'info_' + info.type"
-          [(ngModel)]="info.text" 
-          (keydown.space)="$event.stopPropagation()">
-        </textarea>
-      </mat-form-field>
+    <ng-container *ngIf="info.type=='Profile'">
+      <p-fieldset legend="{{ info.type }}" class="my-fields" >
+        <textarea [(ngModel)]="info.text" rows="10" class="no-border"></textarea>
+      </p-fieldset>
     </ng-container>
   </ng-container>
 
+  <!-- Affichage des informations privées -->
   <ng-container *ngIf="isEditable">
-    <button mat-raised-button type="submit" color="primary">{{'Save'|transloco}}</button>
+    <p-fieldset legend="{{'Lastname'|transloco}}" class="my-fields" >
+     <input type="text" pInputText class="no-border" [(ngModel)]="user.lastname"  name="lastname"  />
+    </p-fieldset>
+    <p-fieldset legend="{{'Firstname'|transloco}}" class="my-fields" >
+      <input type="text" pInputText class="no-border" [(ngModel)]="user.firstname" name="firstname" />
+    </p-fieldset>
+    <p-fieldset legend="{{'eMail'|transloco}}"  class="my-fields">
+      <input type="text" pInputText class="no-border" [(ngModel)]="user.eMail"     name="eMail"     />
+    </p-fieldset>
+
   </ng-container>
+
+  <!-- Affichage des relations avec les autres utilisateurs -->
+  <ng-container *ngFor="let relationship of user.relationships">
+    <p-fieldset legend="{{ relationship.type }}" class="my-fields">
+      <input type="text" pInputText class="no-border" value="{{ relationship.user?.username }}" name="relationshipUser" />
+    </p-fieldset>
+  </ng-container>
+
+  <!-- Affichage des informations "riches" autres que le profil -->
+  <ng-container *ngFor="let info of user.informations; let index = index">
+    <ng-container *ngIf="info.type!='Profile'">
+      <p-fieldset legend="{{ info.type }}" class="my-fields" >
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon">{{'Title'|transloco}}</span>
+          <!-- TODO changer en combo -->
+          <input type="text" pInputText [(ngModel)]="info.type" placeholder="{{'Title'|transloco}}" />
+        </div>
+        <textarea type="text" [(ngModel)]="info.text" placeholder="informations" rows="10" class="no-border"></textarea>
+
+        <p-button (click)="removeInfo(index)" color="primary">{{'-'|transloco}}</p-button>
+      </p-fieldset>
+    </ng-container>
+  </ng-container>
+
+  <p-toolbar>
+    <div class="p-toolbar-group-start">
+    </div>
+    <div class="p-toolbar-group-end">
+      <p-button (click)="addInfo()" color="primary">{{'New info'|transloco}}</p-button>
+    </div>
+  </p-toolbar>
+
+
+  <!-- Affichage du bouton -->
+  <ng-container *ngIf="isEditable">
+    <button pButton type="submit" color="primary">{{'Save'|transloco}}</button>
+  </ng-container>
+</div>  

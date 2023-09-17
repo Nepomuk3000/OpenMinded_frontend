@@ -23,6 +23,12 @@ import { TreeTableModule } from 'primeng/treetable';
 import { TabViewModule } from 'primeng/tabview';
 import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextModule } from 'primeng/inputtext';
+import { AccordionModule } from 'primeng/accordion';
+import { FieldsetModule } from 'primeng/fieldset';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ToolbarModule } from 'primeng/toolbar';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
