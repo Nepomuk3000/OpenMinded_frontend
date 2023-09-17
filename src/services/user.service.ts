@@ -137,43 +137,9 @@ export class UserService {
   }
 
   updateUser(user:User,newValues:any){
-    Object.keys(newValues).forEach(key => {
-      let value = newValues[key];
-      if (key.startsWith("info_"))
-      {
-        const infoType = key.split('_')[1];
-        const profileInfo = user.informations.find((info: Information) => info.type === infoType);
-        if (profileInfo)
-        {
-          profileInfo.text = value;
-        }
-        else
-        {
-          const info = new Information();
-          info.isPrivate= false;
-          info.type = infoType;
-          info.text = value;
-          user.informations.push(info);
-        }
-      }
-
-    });
+    console.log("updateUser") 
     
-    const profileInfo = user.informations.find((info: Information) => info.type === 'Profile');
-    if (profileInfo)
-    {
-      profileInfo.text = newValues.info_Profile;
-    }
-    else
-    {
-      const info = new Information();
-      info.isPrivate= false;
-      info.type = "Profile"
-      info.text = newValues.info_Profile;
-      user.informations.push(info);
-    }
-    
-    return this.http.put<User>(this.apiUrl + "/" + user._id,user).subscribe((user:User)=>
+    return this.http.put<User>(this.apiUrl + "/", user).subscribe((user:User)=>
       { 
         return user;
       }
