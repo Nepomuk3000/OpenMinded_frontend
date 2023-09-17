@@ -1,3 +1,9 @@
 <div class="users-flow">
-  <app-user-card [userId]="userId" (nextUser)="loadUsers()" (navigateToUser)="navigateToUser($event)"></app-user-card>
+  <app-user-card *ngIf='userId!=""' [userId]="userId" (nextUser)="loadUsers()" (navigateToUser)="navigateToUser($event)"></app-user-card>
+  <div *ngIf='userId==""'>
+    <p>Ya pu rien à se mettre sous la dent. Etendre la distance de recherche ?</p>
+    <p-inputNumber [(ngModel)]="searchRadius" [showButtons]="true" [step]="10"> </p-inputNumber>
+    <p-button label="Etendre" (onClick)="setSearchRadius()"></p-button>
+    <p-button label="Reinitialiser les profils visités" (onClick)="resetVisited()"></p-button>
+  </div>
 </div>

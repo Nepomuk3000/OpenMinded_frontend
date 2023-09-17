@@ -3,6 +3,7 @@ import { UserService } from '../../services/user.service';
 import { Component, OnInit, HostListener, ElementRef, Renderer2  } from '@angular/core';
 import { ActivatedRoute, Router  } from '@angular/router';
 import { Location } from '@angular/common';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
   selector: 'app-users-flow',
@@ -13,7 +14,9 @@ import { Location } from '@angular/common';
 export class UsersFlowComponent implements OnInit {
   
   userId: string = "";
+  curUserId: string = "";
   paramsUsed: boolean = false;
+  searchRadius: number = 0; // Valeur initiale, vous pouvez la modifier en fonction de vos besoins
   
   constructor(private userService: UserService , 
     private elementRef: ElementRef, 
@@ -22,15 +25,35 @@ export class UsersFlowComponent implements OnInit {
     private router: Router,
     private location: Location) {}
 
-  ngOnInit() {
-    this.route.snapshot.queryParams = {};
-    this.loadUsers();
-    this.onResize();
-  }
+    ngOnInit() {
+      this.route.snapshot.queryParams = {};
+      this.curUserId = this.userService.getCurrentUserId() || "";
+  
+      if (this.curUserId) {
+        this.userService.getUser(this.curUserId).subscribe((user: User) => {
+          this.searchRadius = user.requirements.searchRadius;
+        });
+      } else {
+        // Traitez le cas où curUserId est null, par exemple, affichez un message d'erreur ou redirigez l'utilisateur vers une page de connexion.
+      }
+
+      this.loadUsers();
+      this.onResize();
+    }
 
   navigateToUser(userId:string)
   {
     console.log("Oui c'est de la que ça part  : " + userId)
+  }
+
+  setSearchRadius() {
+    this.userService.setSearchRadius(this.searchRadius)
+    this.loadUsers()
+  }
+
+  async resetVisited() {
+    const ret = await this.userService.resetVisited()
+    this.loadUsers()
   }
 
   loadUsers() {
@@ -40,13 +63,16 @@ export class UsersFlowComponent implements OnInit {
         this.userId = params['userId'];
         this.location.replaceState(this.location.path().split('?')[0], '');
         this.paramsUsed = true;
-        if (this.userService.getCurrentUserId() as string != this.userId)
-        {
+        if (this.userService.getCurrentUserId() as string != this.userId) {
           this.userService.addVisit(this.userId);
         }
       } else {
-        this.userService.getRandomUser().subscribe((user: User) => {
-          this.userId = String(user._id);
+        this.userService.getRandomUser().subscribe((user:(User|null)) => {
+          if (user) {
+            this.userId = String(user._id);
+          } else {
+            this.userId = ""
+          }
         });      
       }
     });

@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { firstValueFrom } from 'rxjs';
 import { serverUrl } from '../config';
+import { catchError } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root',
@@ -59,6 +61,32 @@ export class UserService {
       return of(new User());
     }
   }
+
+  setSearchRadius(searchRadius: number) {
+    this.http.put<User>(this.apiUrl + "/search-radius", { searchRadius: searchRadius }).subscribe(
+      (response) => {
+        console.log("Rayon de recherche mis à jour  !");
+        console.log(response);
+      },
+      (error) => {
+        console.log("Erreur lors de la mise à jour du rayne de recherche !");
+        console.log(error);
+      }
+    )
+  }
+
+  resetVisited() {
+    this.http.put<User>(this.apiUrl + "/reset-visits","").subscribe(
+      (response) => {
+        console.log("Profil visités réinitialisés !");
+        console.log(response);
+      },
+      (error) => {
+        console.log("Erreur lors de la réinitialisation des profils visités !");
+        console.log(error);
+      }
+    )
+  }
   
   getUser(userId: string, complete: boolean = true): Observable<User> {
     return this.http.get<User>(this.apiUrl + "/" + userId).pipe(
@@ -87,11 +115,18 @@ export class UserService {
 
   }
   
-  getRandomUser(): Observable<User> {
+  getRandomUser(): Observable<User | null> {
     return this.http.get<User>(this.apiUrl + "/random").pipe(
-      map((user: User) => {
-          this.completeUser(user).subscribe((user:User)=>{});
-        return user;
+      catchError(error => {
+        // Retourner un observable contenant null en tant qu'utilisateur par défaut
+        return of(null);
+      }),
+      map((user: User | null) => {
+        if (user !== null) {
+          this.completeUser(user).subscribe((user: User) => {});
+          return user;
+        }
+        return null; // Retourne null si user est null
       })
     );
   }

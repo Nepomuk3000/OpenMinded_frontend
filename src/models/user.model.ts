@@ -21,6 +21,12 @@ export class Interaction {
     dates : Date[] = [];
 }
 
+
+export class Requirements {
+    searchRadius: number = 10;
+    labels : [] = [];
+}
+
 export class User {
     _id: number= 0;
     eMail: string = "";
@@ -47,4 +53,5 @@ export class User {
     likedBy : Interaction [] = [];
     loveedBy : Interaction [] = [];
     rejectedBy : Interaction [] = [];
+    requirements : Requirements = new Requirements();
   }
