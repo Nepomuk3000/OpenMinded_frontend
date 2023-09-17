@@ -22,6 +22,7 @@ import { TreeModule } from 'primeng/tree';
 import { TreeTableModule } from 'primeng/treetable';
 import { TabViewModule } from 'primeng/tabview';
 import { ButtonModule } from 'primeng/button';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -86,6 +87,7 @@ import { AuthInterceptor } from '../interceptors/auth.interceptor';
     TreeTableModule,
     TabViewModule,
     ButtonModule,
+    InputNumberModule,
 
     BrowserAnimationsModule,
     AppRoutingModule,
