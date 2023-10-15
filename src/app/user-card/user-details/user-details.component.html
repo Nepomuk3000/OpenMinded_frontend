@@ -39,51 +39,37 @@
   <!-- Affichage des relations avec les autres utilisateurs -->
   
   <p-fieldset legend="Relationships" class="my-fields" [toggleable]="true" [collapsed]="true" >
-    <ng-container *ngFor="let relationship of user.relationships">
+    <ng-container *ngFor="let relationship of user.relationships; let index = index">
       <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">{{ relationship.type }}</span>
-        <input type="text" pInputText value="{{ relationship.user?.username }}" name="relationshipUser" />
+        <span class="p-inputgroup-addon">
+          <input type="text" pInputText [(ngModel)]="relationship.type" placeholder="{{'Relationship'|transloco}}" />
+        </span>
+        <ng-container *ngIf="relationship.user">
+          <input type="text" pInputText [(ngModel)]="relationship.user.username" placeholder="{{'User name'|transloco}}" />
+        </ng-container>
+        <button type="button" pButton (click)="removeRelationship(index)" icon="pi pi-times" styleClass="p-button-danger"></button>
+
       </div>
     </ng-container>
+    <p-button (click)="addRelationship()" color="primary">{{'New info'|transloco}}</p-button>
   </p-fieldset>
 
   <!-- Affichage des informations "riches" autres que le profil -->
-  <ng-container *ngFor="let info of user.informations; let index = index">
-    <ng-container *ngIf="info.type!='Profile'">
-      <p-fieldset legend="{{ info.type }}" class="my-fields" [toggleable]="true" [collapsed]="true"  >
+  <p-fieldset legend="{{'Details'|transloco}}" class="my-fields" [toggleable]="true"  >
+    <ng-container *ngFor="let info of user.informations; let index = index">
+      <ng-container *ngIf="info.type!='Profile'">
         <div class="p-inputgroup">
-          <span class="p-inputgroup-addon">{{'Title'|transloco}}</span>
-          
-          <!-- Titre de l'information -->
-          <!-- TODO : changer en combo -->
-          <input type="text" pInputText [(ngModel)]="info.type" placeholder="{{'Title'|transloco}}" />
-        </div>
-
-        <!-- Contenu de l'information -->
-        <div class="p-inputgroup">
-          <span class="p-inputgroup-addon">{{'Details'|transloco}}</span>
-          <!-- Titre de l'information -->
-          <!-- TODO : changer en combo -->
+          <span class="p-inputgroup-addon">
+            <input type="text" pInputText [(ngModel)]="info.type" placeholder="{{'Title'|transloco}}" />
+          </span>
           <textarea pInputTextArea [(ngModel)]="info.text" placeholder="informations" rows="10"></textarea>
+          <button type="button" pButton (click)="removeInfo(index)" icon="pi pi-times" styleClass="p-button-danger"></button>
         </div>
-
-        <!-- Boutton de suppression de l'information -->
-        <!-- TODO : Remplacer par un icone poubelle -->
-        <p-button (click)="removeInfo(index)" color="primary">{{'-'|transloco}}</p-button>
-      </p-fieldset>
+      </ng-container>
     </ng-container>
-  </ng-container>
-
-  <!-- Affichage des informations "riches" autres que le profil -->
-  <ng-container *ngIf="isEditable">
-    <p-toolbar>
-      <div class="p-toolbar-group-end">
-        <p-button (click)="addInfo()" color="primary">{{'New info'|transloco}}</p-button>
-      </div>
-    </p-toolbar>
-  </ng-container>
-
-
+    <p-button (click)="addInfo()" color="primary">{{'New info'|transloco}}</p-button>
+  </p-fieldset>
+    
   <!-- Affichage du bouton d'enregistrement des modifications  -->
   <ng-container *ngIf="isEditable">
     <button pButton type="submit" color="primary">{{'Save'|transloco}}</button>

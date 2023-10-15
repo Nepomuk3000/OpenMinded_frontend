@@ -13,7 +13,7 @@ export class Information {
 export class Relationship {
     type: string = "";
     userId: string = "";
-    user : User | undefined;
+    user : User = new User();
 }
 
 export class Interaction {

@@ -5,7 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { firstValueFrom } from 'rxjs';
 import { serverUrl } from '../config';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 
 @Injectable({
@@ -131,13 +132,37 @@ export class UserService {
     );
   }
 
-  updateUser(user:User){
-      return this.http.put<User>(this.apiUrl + "/", user).subscribe((user:User)=>
-      { 
-        return user;
-      }
-    );
-  }  
+  async updateUser(user: User) {
+    try {
+      const response = await this.http.put<User>(this.apiUrl + "/", user)
+        .pipe(
+          tap((response: any) => {
+            // Traitement du cas nominal
+            console.log('Requête réussie :', response);
+          }),
+          catchError((error) => {
+            if (error.status === 401) {
+              // Traitement du code d'erreur 401 (Unauthorized)
+              console.error('Erreur 401 :', error);
+            } else if (error.status === 500) {
+              // Traitement du code d'erreur 500 (Internal Server Error)
+              console.error('Erreur 500 :', error);
+            } else {
+              // Autres erreurs
+              console.error('Erreur inattendue :', error);
+            }
+            return throwError('Une erreur s\'est produite.');
+          })
+        )
+        .toPromise(); // Attend la réponse et renvoie le résultat
+  
+      // Maintenant, vous pouvez utiliser la réponse pour effectuer des opérations supplémentaires.
+      console.log('Traitement supplémentaire du cas nominal :', response);
+    } catch (error) {
+      // Gérez les erreurs de la requête HTTP ici
+      console.error('Erreur pendant la requête :', error);
+    }
+  }
 
   async storeCurrentUserLocaly(token: string,userId: string,userName: string) {
     localStorage.setItem(this.tokenKey, token);
