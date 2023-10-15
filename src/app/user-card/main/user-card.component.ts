@@ -3,6 +3,7 @@ import { User } from '../../../models/user.model';
 import { UserService } from '../../../services/user.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-user-card',
@@ -27,7 +28,8 @@ export class UserCardComponent implements OnInit {
   constructor(private userService:UserService, 
     private elementRef:ElementRef, 
     private renderer:Renderer2,
-    private router: Router){}
+    private router: Router,
+    private messageService:MessageService) {}
 
   ngOnInit() {
     this.hasAMouse = !('ontouchstart' in window) || navigator.maxTouchPoints === 0;
@@ -35,6 +37,7 @@ export class UserCardComponent implements OnInit {
     {
       this.showMore = true;
     }
+    this.processImages();
   }
 
   handleCptImageChange(cptImage: number)
@@ -65,6 +68,7 @@ export class UserCardComponent implements OnInit {
 
       this.userService.getUser(this.userId).subscribe((user: User) => {
         this.user = user;
+        this.user.password = ''
         this.processImages();
       });
     }
@@ -72,6 +76,7 @@ export class UserCardComponent implements OnInit {
 
   processImages() {
     let lImagesList : string[] = [];
+    console.log(this.user.image)
     lImagesList.push(this.user.image);
     if (this.user.albums)
     {
@@ -82,14 +87,21 @@ export class UserCardComponent implements OnInit {
       });
     }
     this.imagesList = lImagesList;
+    console.log(this.user)
+    console.log(lImagesList)
  }
 
 
   onSave(form: NgForm) {
     // Vérifiez si le formulaire est valide avant de traiter les modifications
     if (form.valid) {
-      this.userService.updateUser(this.user,form.value);
+      this.userService.updateUser(this.user);
       // Vous pouvez effectuer d'autres opérations avec les valeurs modifiées, comme les sauvegarder dans votre modèle de données, les envoyer au serveur, etc.
+      
+      this.messageService.add(
+        { severity: 'success', 
+          summary: 'Update user', 
+          detail: "User updated successfully" });
     }
   }
 

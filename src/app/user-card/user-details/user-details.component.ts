@@ -10,12 +10,18 @@ export class UserDetailsComponent implements OnInit {
 
   @Input() user: User = new User();
   @Input() isEditable:boolean=false;
+  confirmPassword: string = '';
+  passwordsMatch: boolean = true;
 
-  constructor() { }
+  
+
 
   ngOnInit(): void {
   }
   
+  checkPasswordEquality() {
+    this.passwordsMatch = this.user.password === this.confirmPassword;
+  }
 
   editableOrNot(): string {
     return this.isEditable ? 'editable' : 'notEditable';

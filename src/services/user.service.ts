@@ -131,15 +131,8 @@ export class UserService {
     );
   }
 
-
-  saveUser() {
-    
-  }
-
-  updateUser(user:User,newValues:any){
-    console.log("updateUser") 
-    
-    return this.http.put<User>(this.apiUrl + "/", user).subscribe((user:User)=>
+  updateUser(user:User){
+      return this.http.put<User>(this.apiUrl + "/", user).subscribe((user:User)=>
       { 
         return user;
       }

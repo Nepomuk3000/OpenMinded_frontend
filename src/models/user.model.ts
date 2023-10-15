@@ -38,6 +38,7 @@ export class User {
     lastname: string = "";
     relationships:Relationship[]=[];
     username:string="";
+    password:string="";
     profile:string="";
     dateOfBirth:Date=new Date();
     userObject : User | undefined;

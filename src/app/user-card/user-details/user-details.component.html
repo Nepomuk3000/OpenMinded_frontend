@@ -1,11 +1,9 @@
-
-
-<!-- TODO ne pas éditer si l'utilisateur n'est pas lcelui qui est connecté -->
+<!-- TODO ne pas éditer si l'utilisateur n'est pas celui qui est connecté -->
 <div style="width:100%">
   <!-- Affichage des informations du profil -->
   <ng-container *ngFor="let info of user.informations">
     <ng-container *ngIf="info.type=='Profile'">
-      <p-fieldset legend="{{ info.type }}" class="my-fields" >
+      <p-fieldset legend="{{ info.type }}" class="my-fields" [toggleable]="true" [collapsed]="true" >
         <textarea [(ngModel)]="info.text" rows="10" class="no-border"></textarea>
       </p-fieldset>
     </ng-container>
@@ -13,51 +11,80 @@
 
   <!-- Affichage des informations privées -->
   <ng-container *ngIf="isEditable">
-    <p-fieldset legend="{{'Lastname'|transloco}}" class="my-fields" >
-     <input type="text" pInputText class="no-border" [(ngModel)]="user.lastname"  name="lastname"  />
-    </p-fieldset>
-    <p-fieldset legend="{{'Firstname'|transloco}}" class="my-fields" >
-      <input type="text" pInputText class="no-border" [(ngModel)]="user.firstname" name="firstname" />
-    </p-fieldset>
-    <p-fieldset legend="{{'eMail'|transloco}}"  class="my-fields">
-      <input type="text" pInputText class="no-border" [(ngModel)]="user.eMail"     name="eMail"     />
+    <p-fieldset legend="{{'Identity'|transloco}}" class="my-fields" [toggleable]="true" [collapsed]="true" >
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">{{'Lastname'|transloco}}</span>
+        <input type="text" pInputText [(ngModel)]="user.lastname"  name="lastname"  />
+      </div>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">{{'Firstname'|transloco}}</span>
+        <input type="text" pInputText [(ngModel)]="user.firstname" name="firstname" />
+      </div>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">{{'eMail'|transloco}}</span>
+        <input type="text" pInputText [(ngModel)]="user.eMail"     name="eMail"     />
+      </div>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">{{'Password'|transloco}}</span>
+        <input type="password" pInputText [(ngModel)]="user.password" (input)="checkPasswordEquality()" name="password"     />
+      </div>
+      <div class="p-inputgroup" >
+        <span class="p-inputgroup-addon" [ngClass]="{'mismatch': !passwordsMatch}">{{'Confirm password'|transloco}}</span>
+        <input type="password" pInputText [(ngModel)]="confirmPassword" (input)="checkPasswordEquality()" name="confirmPassword"     />
+      </div>
     </p-fieldset>
 
   </ng-container>
 
   <!-- Affichage des relations avec les autres utilisateurs -->
-  <ng-container *ngFor="let relationship of user.relationships">
-    <p-fieldset legend="{{ relationship.type }}" class="my-fields">
-      <input type="text" pInputText class="no-border" value="{{ relationship.user?.username }}" name="relationshipUser" />
-    </p-fieldset>
-  </ng-container>
+  
+  <p-fieldset legend="Relationships" class="my-fields" [toggleable]="true" [collapsed]="true" >
+    <ng-container *ngFor="let relationship of user.relationships">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">{{ relationship.type }}</span>
+        <input type="text" pInputText value="{{ relationship.user?.username }}" name="relationshipUser" />
+      </div>
+    </ng-container>
+  </p-fieldset>
 
   <!-- Affichage des informations "riches" autres que le profil -->
   <ng-container *ngFor="let info of user.informations; let index = index">
     <ng-container *ngIf="info.type!='Profile'">
-      <p-fieldset legend="{{ info.type }}" class="my-fields" >
+      <p-fieldset legend="{{ info.type }}" class="my-fields" [toggleable]="true" [collapsed]="true"  >
         <div class="p-inputgroup">
           <span class="p-inputgroup-addon">{{'Title'|transloco}}</span>
-          <!-- TODO changer en combo -->
+          
+          <!-- Titre de l'information -->
+          <!-- TODO : changer en combo -->
           <input type="text" pInputText [(ngModel)]="info.type" placeholder="{{'Title'|transloco}}" />
         </div>
-        <textarea type="text" [(ngModel)]="info.text" placeholder="informations" rows="10" class="no-border"></textarea>
 
+        <!-- Contenu de l'information -->
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon">{{'Details'|transloco}}</span>
+          <!-- Titre de l'information -->
+          <!-- TODO : changer en combo -->
+          <textarea pInputTextArea [(ngModel)]="info.text" placeholder="informations" rows="10"></textarea>
+        </div>
+
+        <!-- Boutton de suppression de l'information -->
+        <!-- TODO : Remplacer par un icone poubelle -->
         <p-button (click)="removeInfo(index)" color="primary">{{'-'|transloco}}</p-button>
       </p-fieldset>
     </ng-container>
   </ng-container>
 
-  <p-toolbar>
-    <div class="p-toolbar-group-start">
-    </div>
-    <div class="p-toolbar-group-end">
-      <p-button (click)="addInfo()" color="primary">{{'New info'|transloco}}</p-button>
-    </div>
-  </p-toolbar>
+  <!-- Affichage des informations "riches" autres que le profil -->
+  <ng-container *ngIf="isEditable">
+    <p-toolbar>
+      <div class="p-toolbar-group-end">
+        <p-button (click)="addInfo()" color="primary">{{'New info'|transloco}}</p-button>
+      </div>
+    </p-toolbar>
+  </ng-container>
 
 
-  <!-- Affichage du bouton -->
+  <!-- Affichage du bouton d'enregistrement des modifications  -->
   <ng-container *ngIf="isEditable">
     <button pButton type="submit" color="primary">{{'Save'|transloco}}</button>
   </ng-container>

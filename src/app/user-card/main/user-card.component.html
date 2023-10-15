@@ -1,4 +1,6 @@
+<p-toast position="top-center"></p-toast>
 
+<!-- Affichage de la barre de navigation dans les images -->
 <div class="imageMarkersContaier">
 
   <span *ngFor="let image of imagesList; let i = index; let isFirst = first" [ngClass]="'imageMark-' + i + ' ' + (isFirst ? 'imageMarkerUp' : 'imageMarkerDown')"></span>
@@ -10,41 +12,46 @@
   <form #profileForm="ngForm" (ngSubmit)="onSave(profileForm)">
     <mat-card class="card">
 
-        <!--mat-card-header> 
-          <mat-card-title>{{ user.username }}</mat-card-title>
-        </mat-card-header-->
-
-
-        <mat-card-content>
-          <div class="img-container" style="position: relative;">
-            <div>
-              <app-image-card [imagesList]="imagesList"  (cptImageChange)="handleCptImageChange($event)"></app-image-card>
-            </div>
-            <span class="username">{{ user.username }}</span>
-            <ng-container *ngIf="!isEditable && hasAMouse && !hideNextPrecButtons">
-              <button class="button previous" type="button" (click)="handlePreviousButtonClick()">    <mat-icon>keyboard_arrow_left</mat-icon></button>
-              <button class="button next" type="button" (click)="handleNextButtonClick()">    <mat-icon>keyboard_arrow_right</mat-icon></button>
-              <button class="button showMore" type="button" (click)="handleShowMoreButtonClick()">    <mat-icon>keyboard_arrow_down</mat-icon></button>
-            </ng-container>            
-            <ng-container *ngIf="hideNextPrecButtons">
-              <button class="button details" type="button" (click)="handleDetailsButtonClick(userId)">    <mat-icon>unfold_more</mat-icon></button>
-            </ng-container>  
-            
-            <ng-container *ngIf="!isEditable">
-              <mat-card-actions  class="buttonsBox">
-                <app-user-button-bar [userId]="userId">
-                </app-user-button-bar>
-              </mat-card-actions>
-            </ng-container>
+      <mat-card-content>
+        <!-- Affichage de la zone d'image et d'interactions -->
+        <div class="img-container" style="position: relative;">
+          <!-- Affichage de l'images courante -->
+          <div>
+            <app-image-card [imagesList]="imagesList"  (cptImageChange)="handleCptImageChange($event)"></app-image-card>
           </div>
-   
-    <ng-container  *ngIf="showMore">
-      <app-user-details [user]="user" [isEditable]="isEditable"></app-user-details>
-    </ng-container>
+
+          <!-- Affichage du nom de l'utilisateur -->
+          <span class="username">{{ user.username }}</span>
+
+          <!-- Affichage des boutons de parcours des utilisateurs -->
+          <ng-container *ngIf="!isEditable && hasAMouse && !hideNextPrecButtons">
+            <button class="button previous" type="button" (click)="handlePreviousButtonClick()">    <mat-icon>keyboard_arrow_left</mat-icon></button>
+            <button class="button next" type="button" (click)="handleNextButtonClick()">    <mat-icon>keyboard_arrow_right</mat-icon></button>
+            <button class="button showMore" type="button" (click)="handleShowMoreButtonClick()">    <mat-icon>keyboard_arrow_down</mat-icon></button>
+          </ng-container>   
+
+          <!-- Affichage du bouton permettant d'accéder au profil compler de l'utiliateur --> 
+          <ng-container *ngIf="hideNextPrecButtons">
+            <button class="button details" type="button" (click)="handleDetailsButtonClick(userId)">    <mat-icon>unfold_more</mat-icon></button>
+          </ng-container>  
           
-  </mat-card-content>
-</mat-card>
-</form>
+          <!-- Affichage de la barre de boutons d'interaction avec l'uitlisateur --> 
+          <ng-container *ngIf="!isEditable">
+            <mat-card-actions  class="buttonsBox">
+              <app-user-button-bar [userId]="userId">
+              </app-user-button-bar>
+            </mat-card-actions>
+          </ng-container>
+        </div>
+
+        <!-- Affichage du bouton d'affichage des détails --> 
+        <ng-container  *ngIf="showMore">
+          <app-user-details [user]="user" [isEditable]="isEditable"></app-user-details>
+        </ng-container>
+
+      </mat-card-content>
+    </mat-card>
+  </form>
 
    <!--
     </mat-expansion-panel>
