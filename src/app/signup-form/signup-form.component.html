@@ -1,55 +1,90 @@
-<mat-card>
-  <mat-card-content>
-    <mat-form-field>
-      <mat-label>{{ 'Firstname' | transloco }}</mat-label>
-      <input matInput placeholder="Firstname" type="text" name="firstname">
-    </mat-form-field>
+<p-toast position="top-center"></p-toast>
 
-    <mat-form-field>
-      <mat-label>{{ 'Lastname' | transloco }}</mat-label>
-      <input matInput placeholder="Lastname" type="text" name="lastname">
-    </mat-form-field>
+<form (ngSubmit)="onLogin()" [formGroup]="loginForm">
+  <p-panel header="Login">
+      <div class="grid">
+        <div class="col-4">
+            Login:
+        </div>
+        <div class="col-6">
+            <input pInputText type="text" formControlName="login" class="form-control" name="login">
+        </div>
+        <div class="col-4">
+            <div [hidden]="loginForm.controls['login'].valid || !loginForm.controls['login'].dirty" class="alert alert-danger">
+                Login is required
+            </div>
+        </div>
+      </div>
+      <div class="grid">
+          <div class="col-4">
+              Password:
+          </div>
+          <div class="col-6">
+              <input pInputText type="password" formControlName="password" class="form-control" name="password">
+          </div>
+          <div class="col-4">
+              <div [hidden]="loginForm.controls['password'].valid || !loginForm.controls['password'].dirty" class="alert alert-danger">
+                  Password is required
+              </div>
+          </div>
+      </div>
+      <div class="grid">
+          <div class="col-4"></div>
+          <div class="col-6">
+              <button pButton type="submit" label="Login" [disabled]="!loginForm.valid"></button>
+          </div>
+          <div class="col-4"></div>
+      </div>
+  </p-panel>
+</form>
 
-    <mat-form-field>
-      <mat-label>{{ 'Username' | transloco }}</mat-label>
-      <input matInput placeholder="Username" type="text" name="username">
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>{{ 'eMail' | transloco }}</mat-label>
-      <input matInput placeholder="eMail" type="email" name="email">
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>{{ 'Password' | transloco }}</mat-label>
-      <input matInput placeholder="Password" type="password" name="password">
-    </mat-form-field>
-  </mat-card-content>
-
-  <mat-card-actions>
-    <button mat-raised-button color="primary">{{ 'Sign-Up' | transloco }}</button>
-  </mat-card-actions>
-</mat-card>
-
-
-
-<mat-card>
-  <mat-card-content>
-    <form #signInForm="ngForm" (ngSubmit)="onLogin(signInForm)">
-      <mat-form-field>
-        <mat-label>{{ 'Username' | transloco }}</mat-label>
-        <input matInput placeholder="Username" type="text" name="username" [(ngModel)]="signInForm.value.username">
-      </mat-form-field>
-
-      <mat-form-field>
-        <mat-label>{{ 'Password' | transloco }}</mat-label>
-        <input matInput placeholder="Password" type="password" name="password" [(ngModel)]="signInForm.value.password">
-      </mat-form-field>
-
-      <mat-card-actions>
-        <button mat-raised-button type="submit" color="primary">{{ 'Sign-In' | transloco }}</button>
-      </mat-card-actions>
-    </form>
-  </mat-card-content>
-  <p *ngIf="message" [ngClass]="messageClass">{{ message }}</p>
-</mat-card>
+<form (ngSubmit)="onSignup()" [formGroup]="signupForm">
+  <p-panel header="Signup">
+    <div class="grid">
+      <div class="col-4">
+          eMail:
+      </div>
+      <div class="col-6">
+          <input pInputText type="text" formControlName="email" class="form-control" name="email">
+      </div>
+      <div class="col-4">
+          <div [hidden]="signupForm.controls['email'].valid || !signupForm.controls['email'].dirty" class="alert alert-danger">
+              eMail is required
+          </div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col-4">
+          Login:
+      </div>
+      <div class="col-6">
+          <input pInputText type="text" formControlName="login" class="form-control" name="login">
+      </div>
+      <div class="col-4">
+          <div [hidden]="signupForm.controls['login'].valid || !signupForm.controls['login'].dirty" class="alert alert-danger">
+              Login is required
+          </div>
+      </div>
+    </div>
+      <div class="grid">
+          <div class="col-4">
+              Password:
+          </div>
+          <div class="col-6">
+              <input pInputText type="password" formControlName="password" class="form-control" name="password">
+          </div>
+          <div class="col-4">
+              <div [hidden]="signupForm.controls['password'].valid || !signupForm.controls['password'].dirty" class="alert alert-danger">
+                  Password is required
+              </div>
+          </div>
+      </div>
+      <div class="grid">
+          <div class="col-4"></div>
+          <div class="col-6">
+              <button pButton type="submit" label="Signup" [disabled]="!signupForm.valid"></button>
+          </div>
+          <div class="col-4"></div>
+      </div>
+  </p-panel>
+</form>

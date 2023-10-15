@@ -5,7 +5,8 @@ import { AppComponent } from './app.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import {AutosizeModule} from 'ngx-autosize';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AutosizeModule } from 'ngx-autosize';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -18,6 +19,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 
+import { ConfirmationService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
+
 import { TreeModule } from 'primeng/tree';
 import { TreeTableModule } from 'primeng/treetable';
 import { TabViewModule } from 'primeng/tabview';
@@ -29,6 +33,9 @@ import { AccordionModule } from 'primeng/accordion';
 import { FieldsetModule } from 'primeng/fieldset';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToolbarModule } from 'primeng/toolbar';
+import { CardModule } from 'primeng/card';
+import { PanelModule } from 'primeng/panel';
+import { ToastModule } from 'primeng/toast';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -75,6 +82,7 @@ import { AuthInterceptor } from '../interceptors/auth.interceptor';
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     AutosizeModule,
     FontAwesomeModule,
     
@@ -87,13 +95,23 @@ import { AuthInterceptor } from '../interceptors/auth.interceptor';
     MatButtonModule,
     MatCardModule,
     MatExpansionModule,
-    MatMenuModule,
+    MatMenuModule, 
 
     TreeModule,
     TreeTableModule,
     TabViewModule,
-    ButtonModule,
+    ButtonModule, 
     InputNumberModule,
+    InputTextareaModule,
+    InputTextModule,
+    AccordionModule,
+    FieldsetModule,
+    ConfirmPopupModule,
+    ToolbarModule,
+    CardModule,
+    PanelModule,
+    ToastModule,
+
 
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -104,7 +122,9 @@ import { AuthInterceptor } from '../interceptors/auth.interceptor';
                 provide: HTTP_INTERCEPTORS,
                 useClass: AuthInterceptor,
                 multi: true
-              }
+              },
+              ConfirmationService,
+              MessageService
             ],
   bootstrap: [AppComponent]
 })
