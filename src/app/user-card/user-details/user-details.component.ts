@@ -10,14 +10,8 @@ export class UserDetailsComponent implements OnInit {
 
   @Input() user: User = new User();
   @Input() isEditable:boolean=false;
-  confirmPassword: string = '';
-  passwordsMatch: boolean = true;
 
   ngOnInit(): void {
-  }
-  
-  checkPasswordEquality() {
-    this.passwordsMatch = this.user.password === this.confirmPassword;
   }
 
   editableOrNot(): string {
@@ -30,14 +24,6 @@ export class UserDetailsComponent implements OnInit {
   
   removeInfo(index:number): void {
     this.user.informations.splice(index,1)
-  }
-
-  addRelationship(): void {
-    this.user.relationships.push(new Relationship())
-  }
-  
-  removeRelationship(index:number): void {
-    this.user.relationships.splice(index,1)
   }
 
 }

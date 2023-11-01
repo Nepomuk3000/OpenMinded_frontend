@@ -34,7 +34,7 @@ export class User {
     image:string="";
     albums: Album[] = [];
     informations: Information[] = [];
-    labels: [] = [];
+    labels: string[] = [];
     lastname: string = "";
     relationships:Relationship[]=[];
     username:string="";

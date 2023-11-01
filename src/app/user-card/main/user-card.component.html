@@ -46,7 +46,15 @@
 
         <!-- Affichage du bouton d'affichage des détails --> 
         <ng-container  *ngIf="showMore">
+          <app-user-identity style="width:100%" [user]="user" [isEditable]="isEditable"></app-user-identity>
           <app-user-details [user]="user" [isEditable]="isEditable"></app-user-details>
+          <app-user-relationship [user]="user" [isEditable]="isEditable"></app-user-relationship>
+          <app-labels-list [admin]="false" (selectedLabels)="receiveData($event)"></app-labels-list>
+        </ng-container>
+        
+        <!-- Affichage du bouton d'enregistrement des modifications  -->
+        <ng-container *ngIf="isEditable">
+          <button pButton type="submit" color="primary">{{'Save'|transloco}}</button>
         </ng-container>
 
       </mat-card-content>

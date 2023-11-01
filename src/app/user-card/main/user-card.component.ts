@@ -4,6 +4,7 @@ import { UserService } from '../../../services/user.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-card',
@@ -38,6 +39,10 @@ export class UserCardComponent implements OnInit {
       this.showMore = true;
     }
     this.processImages();
+  }
+
+  receiveData(data: string[]) {
+    this.user.labels = data
   }
 
   handleCptImageChange(cptImage: number)
@@ -87,21 +92,29 @@ export class UserCardComponent implements OnInit {
       });
     }
     this.imagesList = lImagesList;
-    console.log(this.user)
-    console.log(lImagesList)
  }
 
 
-  onSave(form: NgForm) {
+  async onSave(form: NgForm) {
     // Vérifiez si le formulaire est valide avant de traiter les modifications
     if (form.valid) {
-      this.userService.updateUser(this.user);
-      // Vous pouvez effectuer d'autres opérations avec les valeurs modifiées, comme les sauvegarder dans votre modèle de données, les envoyer au serveur, etc.
-      
-      this.messageService.add(
-        { severity: 'success', 
-          summary: 'Update user', 
-          detail: "User updated successfully" });
+      console.log(form)
+      const response = await this.userService.updateUser(this.user);
+      if (response.status == 200) 
+      {
+          this.messageService.add(
+            { severity: 'success', 
+              summary: 'Update user', 
+              detail: "User updated successfully" });
+      } else {
+        // Gérer d'autres types de retour (si nécessaire)
+        console.error('Une erreur s\'est produite :', response);
+        this.messageService.add(
+          { severity: 'error', 
+            summary: 'Update user', 
+            detail: "response.message" });
+      }
+
     }
   }
 

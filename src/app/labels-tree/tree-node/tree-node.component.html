@@ -1,0 +1,51 @@
+<!-- tree-node.component.html -->
+
+
+<p>{{ node.data }}</p>
+
+<ng-container  *ngIf="node.children && node.children.length > 0; 
+    then nodeWithChildren"></ng-container >
+  
+<ng-template #nodeWithChildren>
+    <ng-container *ngIf="hasGrandChildren(node);
+        then nodeWithGrandChildren 
+        else nodeWithoutGrandChildren"></ng-container >
+</ng-template>
+
+<ng-template #nodeWithoutGrandChildren>
+    <p-treeTable [value]="node.children" [columns]="cols" selectionMode="checkbox" (selectionChange)="onSelectionChange($event)">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let col of cols">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowNode>
+            <tr>
+                <td *ngFor="let col of cols; let i = index">
+                    <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0" ></p-treeTableCheckbox>
+                    <ng-container *ngIf="col.field !== 'actions'">
+                        {{rowNode.node[col.field]}}
+                    </ng-container>
+                    <div class="button-container" *ngIf="col.field === 'actions'">
+                        <ng-container>
+                            <p-button (click)="handleEditButtonClick(rowNode)">Edit</p-button>
+                            <p-button (click)="handleDeleteButtonClick(rowNode)">Delete</p-button> 
+                        </ng-container>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-treeTable>
+
+</ng-template>
+
+<ng-template #nodeWithGrandChildren>
+<p-tabView  [scrollable]="true">
+    <p-tabPanel *ngFor="let child of node.children" [header]="child.label ? child.label : ''" >
+        <app-tree-node [node]="child" (selectedLabels)="receiveData($event)" [admin]="admin"></app-tree-node>
+    </p-tabPanel>
+</p-tabView>
+</ng-template>

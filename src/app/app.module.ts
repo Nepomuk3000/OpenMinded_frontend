@@ -42,6 +42,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserCardComponent } from './user-card/main/user-card.component';
 import { UserButtonBarComponent } from './user-card/user-button-bar/user-button-bar.component';
 import { UserDetailsComponent } from './user-card/user-details/user-details.component';
+import { UserRelationshipComponent } from './user-card/user-relationship/user-relationship.component';
+import { UserIdentityComponent } from './user-card/user-identity/user-identity.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { UsersFlowComponent } from './users-flow/users-flow.component';
 import { UsersGalleryComponent } from './users-gallery/users-gallery.component';
@@ -49,7 +51,8 @@ import { ImageUploaderComponent } from './image-uploader/image-uploader.componen
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { LabelsTreeComponent } from './labels-tree/labels-tree.component';
-import { ImageCardComponent } from './image-card/image-card.component';
+import { TreeNodeComponent } from './labels-tree/tree-node/tree-node.component';
+import { ImageCardComponent } from './user-card/image-card/image-card.component';
 import { ChatComponent } from './chat/chat.component';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -68,9 +71,12 @@ import { AuthInterceptor } from '../interceptors/auth.interceptor';
     UserProfileComponent,
     SignupFormComponent,
     LabelsTreeComponent,
+    TreeNodeComponent,
     UserCardComponent,
     UserButtonBarComponent,
     UserDetailsComponent,
+    UserRelationshipComponent,
+    UserIdentityComponent,
     UsersFlowComponent,
     UsersGalleryComponent,
     ImageUploaderComponent,

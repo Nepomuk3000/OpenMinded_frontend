@@ -1,13 +1,12 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, forkJoin } from 'rxjs';
 import { Information, User } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 import { firstValueFrom } from 'rxjs';
 import { serverUrl } from '../config';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, tap, map } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-
+import { HttpResponseBase, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -50,16 +49,35 @@ export class UserService {
     if (!user.image) {
       user.image = "https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_640.png";
     }
-    try {
-      const userId = user.relationships[0].userId;
-      return this.getUser(userId, false).pipe(
-        map((userObject: User) => {
-          user.relationships[0].user = userObject;
-          return user;
+    if (user.relationships && user.relationships.length > 0) {
+      // Utilise forkJoin pour attendre que toutes les requêtes soient terminées
+      return forkJoin(
+        user.relationships.map((relationship) =>
+          this.getUser(relationship.userId, false).pipe(
+            catchError((error) => {
+              // Gérez les erreurs pour chaque relation ici
+              console.error(
+                'Erreur lors de la récupération de l\'utilisateur :',
+                error
+              );
+              return of(null); // Remplacez par une valeur par défaut ou d'autres actions en cas d'erreur
+            })
+          )
+        )
+      ).pipe(
+        map((userObjects) => {
+          // Mettez à jour les objets User dans les relations avec les objets récupérés
+          userObjects.forEach((userObject, index) => {
+            if (userObject) {
+              user.relationships[index].user = userObject;
+            }
+          });
+          return user; // Renvoie l'utilisateur mis à jour
         })
       );
-    } catch (error) {
-      return of(new User());
+    } else {
+      // Si user.relationships est vide, renvoie simplement l'utilisateur actuel
+      return of(user);
     }
   }
 
@@ -132,38 +150,26 @@ export class UserService {
     );
   }
 
-  async updateUser(user: User) {
-    try {
-      const response = await this.http.put<User>(this.apiUrl + "/", user)
-        .pipe(
-          tap((response: any) => {
-            // Traitement du cas nominal
-            console.log('Requête réussie :', response);
-          }),
-          catchError((error) => {
-            if (error.status === 401) {
-              // Traitement du code d'erreur 401 (Unauthorized)
-              console.error('Erreur 401 :', error);
-            } else if (error.status === 500) {
-              // Traitement du code d'erreur 500 (Internal Server Error)
-              console.error('Erreur 500 :', error);
-            } else {
-              // Autres erreurs
-              console.error('Erreur inattendue :', error);
-            }
-            return throwError('Une erreur s\'est produite.');
-          })
-        )
-        .toPromise(); // Attend la réponse et renvoie le résultat
-  
-      // Maintenant, vous pouvez utiliser la réponse pour effectuer des opérations supplémentaires.
-      console.log('Traitement supplémentaire du cas nominal :', response);
-    } catch (error) {
-      // Gérez les erreurs de la requête HTTP ici
-      console.error('Erreur pendant la requête :', error);
-    }
-  }
+  async updateUser(user: User): Promise<HttpResponseBase> {
 
+
+    try {
+      const userObservable = await this.http.put<User>(this.apiUrl + "/", user).toPromise();
+
+      console.log(userObservable)
+      return new HttpResponse({
+        status: 200,
+        body: { data: 'Données de réponse' },
+      });
+    } catch (error: any) {
+      // Gérez les erreurs de la requête HTTP ici
+        console.error('Erreur pendant la requête :', error);
+  
+        // Renvoie un code d'erreur personnalisé, par exemple, un objet HttpErrorResponse
+        return error as HttpErrorResponse;
+      }
+  }
+  
   async storeCurrentUserLocaly(token: string,userId: string,userName: string) {
     localStorage.setItem(this.tokenKey, token);
     localStorage.setItem(this.userIdKey, userId);

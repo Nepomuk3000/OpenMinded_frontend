@@ -1,0 +1,18 @@
+
+  <!-- Affichage des relations avec les autres utilisateurs -->
+  
+  <p-fieldset legend="Relationships" [toggleable]="true" [collapsed]="false" >
+    <ng-container *ngFor="let relationship of user.relationships; let index = index">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+          <input type="text" pInputText [(ngModel)]="relationship.type" placeholder="{{'Relationship'|transloco}}" />
+        </span>
+        <ng-container *ngIf="relationship.user">
+          <input type="text" pInputText [(ngModel)]="relationship.user.username" placeholder="{{'User name'|transloco}}" />
+        </ng-container>
+        <button *ngIf="isEditable" type="button" pButton (click)="removeRelationship(index)" icon="pi pi-times" styleClass="p-button-danger"></button>
+
+      </div>
+    </ng-container>
+    <p-button *ngIf="isEditable" (click)="addRelationship()" color="primary">{{'New info'|transloco}}</p-button>
+  </p-fieldset>

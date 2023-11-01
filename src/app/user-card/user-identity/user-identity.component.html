@@ -1,0 +1,27 @@
+
+  <!-- Affichage des informations privées -->
+  <ng-container *ngIf="isEditable">
+    <p-fieldset legend="{{'Identity'|transloco}}" [toggleable]="true" [collapsed]="true" >
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">{{'Lastname'|transloco}}</span>
+        <input type="text" pInputText [(ngModel)]="user.lastname"  name="lastname"  />
+      </div>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">{{'Firstname'|transloco}}</span>
+        <input type="text" pInputText [(ngModel)]="user.firstname" name="firstname" />
+      </div>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">{{'eMail'|transloco}}</span>
+        <input type="text" pInputText [(ngModel)]="user.eMail"     name="eMail"     />
+      </div>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">{{'Password'|transloco}}</span>
+        <input type="password" pInputText [(ngModel)]="user.password" (input)="checkPasswordEquality()" name="password"     />
+      </div>
+      <div class="p-inputgroup" >
+        <span class="p-inputgroup-addon" [ngClass]="{'mismatch': !passwordsMatch}">{{'Confirm password'|transloco}}</span>
+        <input type="password" pInputText [(ngModel)]="confirmPassword" (input)="checkPasswordEquality()" name="confirmPassword"     />
+      </div>
+    </p-fieldset>
+
+  </ng-container>

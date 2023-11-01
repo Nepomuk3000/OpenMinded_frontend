@@ -3,59 +3,14 @@
   <!-- Affichage des informations du profil -->
   <ng-container *ngFor="let info of user.informations">
     <ng-container *ngIf="info.type=='Profile'">
-      <p-fieldset legend="{{ info.type }}" class="my-fields" [toggleable]="true" [collapsed]="true" >
+      <p-fieldset legend="{{ info.type }}" [toggleable]="true" [collapsed]="true" >
         <textarea [(ngModel)]="info.text" rows="10" class="no-border"></textarea>
       </p-fieldset>
     </ng-container>
   </ng-container>
 
-  <!-- Affichage des informations privées -->
-  <ng-container *ngIf="isEditable">
-    <p-fieldset legend="{{'Identity'|transloco}}" class="my-fields" [toggleable]="true" [collapsed]="true" >
-      <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">{{'Lastname'|transloco}}</span>
-        <input type="text" pInputText [(ngModel)]="user.lastname"  name="lastname"  />
-      </div>
-      <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">{{'Firstname'|transloco}}</span>
-        <input type="text" pInputText [(ngModel)]="user.firstname" name="firstname" />
-      </div>
-      <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">{{'eMail'|transloco}}</span>
-        <input type="text" pInputText [(ngModel)]="user.eMail"     name="eMail"     />
-      </div>
-      <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">{{'Password'|transloco}}</span>
-        <input type="password" pInputText [(ngModel)]="user.password" (input)="checkPasswordEquality()" name="password"     />
-      </div>
-      <div class="p-inputgroup" >
-        <span class="p-inputgroup-addon" [ngClass]="{'mismatch': !passwordsMatch}">{{'Confirm password'|transloco}}</span>
-        <input type="password" pInputText [(ngModel)]="confirmPassword" (input)="checkPasswordEquality()" name="confirmPassword"     />
-      </div>
-    </p-fieldset>
-
-  </ng-container>
-
-  <!-- Affichage des relations avec les autres utilisateurs -->
-  
-  <p-fieldset legend="Relationships" class="my-fields" [toggleable]="true" [collapsed]="true" >
-    <ng-container *ngFor="let relationship of user.relationships; let index = index">
-      <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">
-          <input type="text" pInputText [(ngModel)]="relationship.type" placeholder="{{'Relationship'|transloco}}" />
-        </span>
-        <ng-container *ngIf="relationship.user">
-          <input type="text" pInputText [(ngModel)]="relationship.user.username" placeholder="{{'User name'|transloco}}" />
-        </ng-container>
-        <button type="button" pButton (click)="removeRelationship(index)" icon="pi pi-times" styleClass="p-button-danger"></button>
-
-      </div>
-    </ng-container>
-    <p-button (click)="addRelationship()" color="primary">{{'New info'|transloco}}</p-button>
-  </p-fieldset>
-
   <!-- Affichage des informations "riches" autres que le profil -->
-  <p-fieldset legend="{{'Details'|transloco}}" class="my-fields" [toggleable]="true"  >
+  <p-fieldset legend="{{'Details'|transloco}}" [toggleable]="true"  [collapsed]="true"  >
     <ng-container *ngFor="let info of user.informations; let index = index">
       <ng-container *ngIf="info.type!='Profile'">
         <div class="p-inputgroup">
@@ -63,15 +18,10 @@
             <input type="text" pInputText [(ngModel)]="info.type" placeholder="{{'Title'|transloco}}" />
           </span>
           <textarea pInputTextArea [(ngModel)]="info.text" placeholder="informations" rows="10"></textarea>
-          <button type="button" pButton (click)="removeInfo(index)" icon="pi pi-times" styleClass="p-button-danger"></button>
+          <button *ngIf="isEditable" type="button" pButton (click)="removeInfo(index)" icon="pi pi-times" styleClass="p-button-danger"></button>
         </div>
       </ng-container>
     </ng-container>
-    <p-button (click)="addInfo()" color="primary">{{'New info'|transloco}}</p-button>
+    <p-button *ngIf="isEditable" (click)="addInfo()" color="primary">{{'New info'|transloco}}</p-button>
   </p-fieldset>
-    
-  <!-- Affichage du bouton d'enregistrement des modifications  -->
-  <ng-container *ngIf="isEditable">
-    <button pButton type="submit" color="primary">{{'Save'|transloco}}</button>
-  </ng-container>
 </div>  

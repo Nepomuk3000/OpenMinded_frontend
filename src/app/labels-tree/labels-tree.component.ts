@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { Observable , Observer, of } from 'rxjs';
@@ -14,8 +14,12 @@ import { TreeNode } from 'primeng/api';
 })
  
 export class LabelsTreeComponent implements OnInit {
+  @Input() admin:boolean = false
+  @Output() selectedLabels = new EventEmitter<string[]>();
   root: string = "";
-  pRoot: TreeNode[] = [];
+  pRoot: TreeNode = {};
+  categories: TreeNode[] = []
+  subCategories :{ [key: string]: TreeNode[] } = {};
   cols: any[] = [];
   memorizedLabels = new Map();
   
@@ -29,76 +33,55 @@ export class LabelsTreeComponent implements OnInit {
               public userService: UserService) {}
  
   async ngOnInit() {
-    this.cols = [
-      { field: 'title', header: 'Title' },
-      { field: 'description', header: 'Description' }
-  ];
-  if (this.userService.isCurrentUserAdmin())
-  {
-    this.cols.push(
-      { field: 'actions', header: 'Actions' })
-  }
 
-
+    console.log("admin = ",this.admin)
     await this.showLabels();
-    console.log(this.cols)
-
   }
 
+  receiveData(data: string[],source:string="RIEN") {
+    console.log("toto",data, source)
+  }
 
-  convertToTreeNode(obj: any): TreeNode[] {
-    const treeNodes: TreeNode[] = [];
-    if (Array.isArray(obj))
-    {
-      obj.forEach((item: any) => {
-        const treeNode: TreeNode = {
-          label: item.title,
-          data: {title:item.title,description:item.description},
-          children: [],
-          leaf:false
-        };
-    
-        if (item.children && item.children.length > 0) {
-          treeNode.children = this.convertToTreeNode(item.children);
-        }    
-        else
-        {
-          treeNode.leaf = true;
-        }
-        treeNodes.push(treeNode);
-      });
+  convertToTreeNode(inNode:any, nodeList: any): TreeNode {
+    let outNode : TreeNode = {}
+    if (inNode) {
+     outNode = {
+        key:inNode._id,
+        label:inNode.title,
+        data:inNode.description,
+        children:[]}
+      inNode.children.forEach((child:any) => {
+        const elementRecherche = nodeList.find((item:any) => item._id === child);
+        let childTreeNode = this.convertToTreeNode(elementRecherche, nodeList)
+        if(outNode.children)
+          outNode.children.push(childTreeNode)
+      }); 
     }
-    return treeNodes;
+    
+    return outNode;
   }
   
   async showLabels() {
     try {
       const response = await this.http.get<any>(serverUrl + '/api/label').toPromise();
-      this.pRoot = this.convertToTreeNode(response.children); // Supposons que les nœuds sont dans une propriété "nodes"
-      this.numberOfTabs = this.pRoot.length;
+      response.forEach((node:any) => {
+        if(node.title == 'root') {
+          this.pRoot = this.convertToTreeNode(node,response); // Supposons que les nœuds sont dans une propriété "nodes"
+        }
+      });
+      if (this.pRoot.children) {
+        this.numberOfTabs = this.pRoot.children.length;
+        this.categories = this.pRoot.children
+        this.categories.forEach(category => {
+          if (category.children && category.label) {
+              this.subCategories[category.label] = category.children
+          }
+        });
+      }
     } catch (error) {
       console.error('Une erreur s\'est produite :', error);
     }
-  }
-
-  handleEditButtonClick(rowNode: any) {
-    // Cette fonction sera appelée lorsque le bouton est cliqué.
-    // Vous pouvez utiliser rowNode pour accéder aux données du nœud correspondant.
-    console.log('Bouton d\'édition cliqué pour le nœud:', rowNode.node.label);
-    
-    // Vous pouvez également effectuer d'autres actions en fonction du nœud cliqué.
-    // Par exemple, ouvrir une boîte de dialogue, déclencher une action, etc.
-  }
-
-  handleDeleteButtonClick(rowNode: any) {
-    // Cette fonction sera appelée lorsque le bouton est cliqué.
-    // Vous pouvez utiliser rowNode pour accéder aux données du nœud correspondant.
-    console.log('Bouton de suppression cliqué pour le nœud:', rowNode.node.label);
-    
-    // Vous pouvez également effectuer d'autres actions en fonction du nœud cliqué.
-    // Par exemple, ouvrir une boîte de dialogue, déclencher une action, etc.
-  }
-  
+  }  
 
   handlePreviousButtonClick(){
     this.activeTabIndex--;
