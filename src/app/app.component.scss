@@ -1,32 +1,34 @@
-@import "../themes/light-theme.scss";
-$header-height: 45px;
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  padding-right: 50px;
+
+app-header {
+  background-color: #333;
+  color: #fff;
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  z-index: 9999;
-  height: $header-height;
-  background-color: $header;
-  color:$headerFontColor;
-
-  p {
-    margin-right: 10px;
-  }
+  right: 0;
+  height: 60px; /* Hauteur de l'en-tête */
+  z-index: 2;
 }
 
-.container {
-    background-color: $background;
-    width : 100%;
-    padding-left: 2%;
-    padding-right: 2%;
-    display: flex;
-    justify-content: center;
-    margin-top: $header-height; 
-    height:calc(100vh - $header-height);
-    padding: 20px;
-  }
+.centerLayout {
+  overflow-y: auto; /* Activer la barre de défilement verticale si nécessaire */
+  z-index: 1;
+  margin-top: 60px; /* Pour éviter que le contenu central soit masqué par l'en-tête */
+  margin-bottom: 30px; /* Pour éviter que le contenu central soit masqué par le pied de page */
+  padding: 10px;
+  display: flex;
+  justify-content: center; /* Centrer horizontalement */
+  //align-items: center; /* Centrer verticalement */
+}
+
+app-footer {
+  background-color: #333;
+  color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px; /* Hauteur du pied de page */
+  z-index: 2;
+}

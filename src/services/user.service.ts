@@ -47,7 +47,7 @@ export class UserService {
     }
     
     if (!user.image) {
-      user.image = "https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_640.png";
+      user.image = "https://openminded.luitaud.fr/api/user/image/noAvatar.png";
     }
     if (user.relationships && user.relationships.length > 0) {
       // Utilise forkJoin pour attendre que toutes les requêtes soient terminées

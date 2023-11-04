@@ -54,6 +54,8 @@ import { LabelsTreeComponent } from './labels-tree/labels-tree.component';
 import { TreeNodeComponent } from './labels-tree/tree-node/tree-node.component';
 import { ImageCardComponent } from './user-card/image-card/image-card.component';
 import { ChatComponent } from './chat/chat.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { TranslocoRootModule } from './transloco-root.module';
@@ -82,6 +84,8 @@ import { AuthInterceptor } from '../interceptors/auth.interceptor';
     ImageUploaderComponent,
     NavbarComponent,
     ImageCardComponent,
+    HeaderComponent,
+    FooterComponent,
     ChatComponent
   ],
   imports: [

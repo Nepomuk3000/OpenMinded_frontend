@@ -1,5 +1,4 @@
 import { Component, HostListener, Renderer2, ElementRef, OnInit } from '@angular/core';
-import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +9,7 @@ export class AppComponent implements OnInit{
 
   constructor(
     private renderer:Renderer2,
-    private elementRef:ElementRef,
-    public userService: UserService){}
+    private elementRef:ElementRef){}
 
   ngOnInit()
   {

@@ -82,7 +82,6 @@ export class UserCardComponent implements OnInit {
 
   processImages() {
     let lImagesList : string[] = [];
-    console.log(this.user.image)
     lImagesList.push(this.user.image);
     if (this.user.albums)
     {

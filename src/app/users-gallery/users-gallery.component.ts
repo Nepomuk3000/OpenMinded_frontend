@@ -17,8 +17,6 @@ export class UsersGalleryComponent implements OnInit {
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    // TODO : Charger les utilisateurs au fur et à mesure du scroll et pas tous d'un coup
-    
     this.loadComponentsIfNeeded();
   }
 

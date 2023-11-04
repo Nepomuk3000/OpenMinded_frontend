@@ -1,11 +1,5 @@
-
-<div style="display: flex; place-content: center;">
-    <div class="header">
-        <app-navbar></app-navbar>
-        <p *ngIf="userService.isAuthenticated()">Logged in as : {{ userService.getCurrentUserName() }}</p>
-    </div>
-    <div class="container">   
-        <router-outlet></router-outlet>
-    </div>
-</div>
-  
+<app-header></app-header>
+<div class="centerLayout">
+    <router-outlet></router-outlet>
+</div>  
+<app-footer></app-footer>
