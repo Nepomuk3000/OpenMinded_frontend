@@ -3,15 +3,21 @@ import { Component, Input , Output, EventEmitter, OnInit} from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { UserService } from '../../../services/user.service';
 
+export interface SelectedLabels {
+  source:TreeNode,
+  selectedIds:string[]
+}
+
 @Component({
   selector: 'app-tree-node',
   templateUrl: './tree-node.component.html',
   styleUrls: ['./tree-node.component.scss']
 })
+
 export class TreeNodeComponent implements OnInit {
-  @Input() node: TreeNode = {};
+  @Input() node: TreeNode = {}; 
   @Input() admin: boolean = false;
-  @Output() selectedLabels = new EventEmitter<string[]>();
+  @Output() selectedLabels = new EventEmitter<SelectedLabels>();
 
   cols: any[] = [];
 
@@ -62,12 +68,12 @@ export class TreeNodeComponent implements OnInit {
 
   onSelectionChange(event: any){
     const keys = event.map((objet : TreeNode) => objet.key);
-    this.selectedLabels.emit(keys);
+    const selectedLabels:SelectedLabels = {source:this.node,selectedIds:keys}
+    this.selectedLabels.emit(selectedLabels);
   }
 
   
-  receiveData(data: string[]) {
-    const outData = {parentNode:this.node.label,selectedKeys:data}
-    this.selectedLabels.emit(data);
+  receiveData(selectedLabels:SelectedLabels) {
+    this.selectedLabels.emit(selectedLabels);
   }
 }

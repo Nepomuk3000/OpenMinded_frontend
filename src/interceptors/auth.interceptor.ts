@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { UserService } from 'src/services/user.service';
+import { Observable, catchError, throwError  } from 'rxjs';
+import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -21,6 +21,15 @@ export class AuthInterceptor implements HttpInterceptor {
       this.router.navigate(['/signup']);
     }
 
-    return next.handle(request);
+    
+    return next.handle(request).pipe(
+      catchError((error: any) => {
+        // Gérer les erreurs ici
+        // Par exemple, vous pouvez logger l'erreur
+        this.router.navigate(['/signup']);
+
+        // Retournez un Observable qui émet une erreur (si nécessaire)
+        return throwError(error);
+      }))
   }
 }

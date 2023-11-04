@@ -49,7 +49,7 @@
           <app-user-identity style="width:100%" [user]="user" [isEditable]="isEditable"></app-user-identity>
           <app-user-details [user]="user" [isEditable]="isEditable"></app-user-details>
           <app-user-relationship [user]="user" [isEditable]="isEditable"></app-user-relationship>
-          <app-labels-list [admin]="false" (selectedLabels)="receiveData($event)"></app-labels-list>
+          <app-labels-list [admin]="false" [inSelectedLabel]="user.labels" (selectedLabelsEvt)="receiveData($event)"></app-labels-list>
         </ng-container>
         
         <!-- Affichage du bouton d'enregistrement des modifications  -->

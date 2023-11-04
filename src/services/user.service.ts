@@ -223,8 +223,6 @@ export class UserService {
       console.log("UserService : " + this.getCurrentUserName() + " likes " + user.username);
     });
 
-
-
     const currentUserId = String(this.getCurrentUserId());
     this.getUser(currentUserId).subscribe((currentUser: User) => {
       this.http.put<User>(this.apiUrl + "/like/" + userId,userId).subscribe(

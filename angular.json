@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "openMined_frontEnd": {
+    "openMinded_frontEnd": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -40,7 +40,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "localize":true,
-            "outputPath": "dist/open-mined-front-end",
+            "outputPath": "dist/open-minded-front-end",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -107,10 +107,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "openMined_frontEnd:build:production"
+              "browserTarget": "openMinded_frontEnd:build:production"
             },
             "development": {
-              "browserTarget": "openMined_frontEnd:build:development"
+              "browserTarget": "openMinded_frontEnd:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -118,7 +118,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "openMined_frontEnd:build"
+            "browserTarget": "openMinded_frontEnd:build"
           }
         },
         "test": {

@@ -42,6 +42,7 @@ export class UserCardComponent implements OnInit {
   }
 
   receiveData(data: string[]) {
+    console.log("toto4",data)
     this.user.labels = data
   }
 
@@ -94,12 +95,12 @@ export class UserCardComponent implements OnInit {
     this.imagesList = lImagesList;
  }
 
-
   async onSave(form: NgForm) {
     // Vérifiez si le formulaire est valide avant de traiter les modifications
     if (form.valid) {
       console.log(form)
       const response = await this.userService.updateUser(this.user);
+      console.log(response)
       if (response.status == 200) 
       {
           this.messageService.add(

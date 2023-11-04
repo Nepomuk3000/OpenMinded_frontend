@@ -6,7 +6,12 @@ import { UserService } from '../../services/user.service';
 import { serverUrl } from '../../config';
 
 import { TreeNode } from 'primeng/api';
+import { Tree } from 'primeng/tree';
 
+export interface SelectedLabels {
+  source:TreeNode,
+  selectedIds:string[]
+}
 @Component({
   selector: 'app-labels-list',
   templateUrl: './labels-tree.component.html',
@@ -15,7 +20,9 @@ import { TreeNode } from 'primeng/api';
  
 export class LabelsTreeComponent implements OnInit {
   @Input() admin:boolean = false
-  @Output() selectedLabels = new EventEmitter<string[]>();
+  @Output() selectedLabelsEvt = new EventEmitter<string[]>();
+  @Input() inSelectedLabel : string[] = []
+  selectedLabelsIds : { [key: string]: string[] } = {};
   root: string = "";
   pRoot: TreeNode = {};
   categories: TreeNode[] = []
@@ -34,12 +41,28 @@ export class LabelsTreeComponent implements OnInit {
  
   async ngOnInit() {
 
-    console.log("admin = ",this.admin)
+    console.log("inSelectedLabel = ",this.inSelectedLabel)
     await this.showLabels();
   }
 
-  receiveData(data: string[],source:string="RIEN") {
-    console.log("toto",data, source)
+  receiveData(selectedLabels:SelectedLabels) {
+    console.log("toto1",selectedLabels.source,selectedLabels.selectedIds)
+    const key:string = selectedLabels.source.label?selectedLabels.source.label:""
+    this.selectedLabelsIds[key]= selectedLabels.selectedIds
+    console.log("toto2",this.selectedLabelsIds)
+    // Créez un tableau résultant (string[]) pour stocker tous les éléments
+    const resultArray: string[] = [];
+
+    // Parcourez le dictionnaire et ajoutez chaque élément au tableau résultant
+    for (const key in this.selectedLabelsIds) {
+      if (this.selectedLabelsIds.hasOwnProperty(key)) {
+        const arrayForCurrentKey = this.selectedLabelsIds[key];
+        resultArray.push(...arrayForCurrentKey);
+      }
+    }
+    console.log("toto3",resultArray)
+    this.selectedLabelsEvt.emit(resultArray);
+
   }
 
   convertToTreeNode(inNode:any, nodeList: any): TreeNode {
