@@ -1,6 +1,7 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener   } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
+import { ScrollService } from '../../services/scroll.service';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
@@ -8,15 +9,25 @@ import { firstValueFrom } from 'rxjs';
   templateUrl: './users-gallery.component.html',
   styleUrls: ['./users-gallery.component.scss']
 })
-export class UsersGalleryComponent implements OnInit {
-
+export class UsersGalleryComponent implements OnInit, AfterViewInit {
   users: User[] = [];
   lastLoadedUser:number = 0;
   noMoreUsers=false;
+  scrollTop:number = 0
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService,
+              private scrollService:ScrollService) {}
 
   ngOnInit(): void {
+    this.scrollService.getScrollEvent().subscribe((scrollTop: number) => {
+      // Code à exécuter lorsqu'un événement de défilement est reçu
+      this.scrollTop = scrollTop
+      this.loadComponentsIfNeeded();
+    });
+
+  }
+
+  ngAfterViewInit() : void {
     this.loadComponentsIfNeeded();
   }
 
@@ -51,13 +62,6 @@ export class UsersGalleryComponent implements OnInit {
     return loadedUsersCount; // Retourner le nombre réel d'utilisateurs lus
   }
   
-  
-  
-  
-  
-  
-  
-
   @HostListener('window:resize', ['$event'])
   onWindowResize(event: Event) {
     this.loadComponentsIfNeeded();
@@ -66,27 +70,16 @@ export class UsersGalleryComponent implements OnInit {
   async loadComponentsIfNeeded()
   {    
     const windowHeight = window.innerHeight;
-    const documentHeight = Math.max(
-      document.body.scrollHeight,
-      document.body.offsetHeight,
-      document.documentElement.clientHeight,
-      document.documentElement.scrollHeight,
-      document.documentElement.offsetHeight
-    );
-    if (documentHeight <= window.scrollY + 2 * windowHeight && this.noMoreUsers == false && this.userService.isAuthenticated() == true) {
+    const notEnoughSpace = this.scrollTop + 2 * windowHeight > this.scrollService.div.scrollHeight
+    if (notEnoughSpace && !this.noMoreUsers && this.userService.isAuthenticated()) {
       // Charger les nouveaux composants
       await this.loadUsers(10,this.lastLoadedUser);
 
       // Appeler la fonction de chargement à nouveau après un certain délai
       setTimeout(() => {
         this.loadComponentsIfNeeded();
-      }, 20); // ajustez le délai en fonction de vos besoins
+      }, 100); // ajustez le délai en fonction de vos besoins
     }
-  }
-
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll(event: Event) {
-    this.loadComponentsIfNeeded();
   }
 
   handleRejectUser()

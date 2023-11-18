@@ -63,6 +63,7 @@ import { TranslocoRootModule } from './transloco-root.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { UserService } from '../services/user.service';
+import { ScrollService } from '../services/scroll.service';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../interceptors/auth.interceptor';
@@ -128,6 +129,7 @@ import { AuthInterceptor } from '../interceptors/auth.interceptor';
     TranslocoRootModule
   ],
   providers: [UserService,
+              ScrollService,
               {
                 provide: HTTP_INTERCEPTORS,
                 useClass: AuthInterceptor,

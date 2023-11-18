@@ -11,7 +11,7 @@ app-header {
   z-index: 2;
 }
 
-.centerLayout {
+#centerLayout {
   overflow-y: auto; /* Activer la barre de défilement verticale si nécessaire */
   z-index: 1;
   margin-top: 60px; /* Pour éviter que le contenu central soit masqué par l'en-tête */

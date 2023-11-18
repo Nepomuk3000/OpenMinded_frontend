@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div class="centerLayout">
+<div #centerLayout id="centerLayout" (scroll)="onScroll($event)">
     <router-outlet></router-outlet>
 </div>  
 <app-footer></app-footer>
