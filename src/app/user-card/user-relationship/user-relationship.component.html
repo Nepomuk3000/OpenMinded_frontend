@@ -10,7 +10,7 @@
         <ng-container *ngIf="relationship.user">
           <input type="text" pInputText [(ngModel)]="relationship.user.username" placeholder="{{'User name'|transloco}}" />
         </ng-container>
-        <button *ngIf="isEditable" type="button" pButton (click)="removeRelationship(index)" icon="pi pi-times" styleClass="p-button-danger"></button>
+        <p-button *ngIf="isEditable" (click)="removeRelationship(index)" icon="pi pi-trash" styleClass="p-button-danger"></p-button>
 
       </div>
     </ng-container>

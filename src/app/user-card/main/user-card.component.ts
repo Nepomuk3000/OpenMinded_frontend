@@ -94,6 +94,17 @@ export class UserCardComponent implements OnInit {
     this.imagesList = lImagesList;
  }
 
+ uploadImage(input: string) {
+  let element: HTMLElement = document.getElementById(input) as HTMLElement;
+  element.click()
+  console.log('uploadImage')
+ }
+
+ onUploadImage(event:any) {
+  const fileList:FileList = event.target.files;
+  this.userService.addImages(fileList)
+ }
+
   async onSave(form: NgForm) {
     // Vérifiez si le formulaire est valide avant de traiter les modifications
     if (form.valid) {

@@ -17,7 +17,7 @@
             <input type="text" pInputText [(ngModel)]="info.type" placeholder="{{'Title'|transloco}}" />
           </span>
           <textarea pInputTextArea [(ngModel)]="info.text" placeholder="informations" rows="10"></textarea>
-          <button *ngIf="isEditable" type="button" pButton (click)="removeInfo(index)" icon="pi pi-times" styleClass="p-button-danger"></button>
+          <button *ngIf="isEditable" type="button" pButton (click)="removeInfo(index)" icon="pi pi-trash" styleClass="p-button-danger"></button>
         </div>
       </ng-container>
     </ng-container>

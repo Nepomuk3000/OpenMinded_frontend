@@ -18,6 +18,8 @@
           <!-- Affichage de l'images courante -->
           <div>
             <app-image-card [imagesList]="imagesList"  (cptImageChange)="handleCptImageChange($event)"></app-image-card>
+            <p-button icon="pi pi-upload " (click)="uploadImage('imageFileSelector')"> </p-button>
+            <input hidden id="imageFileSelector" #imageFileSelector type="file" name="files" (change)="onUploadImage($event)">
           </div>
 
           <!-- Affichage du nom de l'utilisateur -->

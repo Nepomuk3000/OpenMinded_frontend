@@ -261,6 +261,20 @@ export class UserService {
     });
   }
 
+  addImages(fileList: FileList) {
+    const formData = new FormData();
+
+    formData.append('file', fileList[0], fileList[0].name);
+
+    this.http
+      .post(this.apiUrl + '/image', formData)
+      .subscribe((response) => {
+        console.log(response)
+      });
+  }
+  
+  
+
   private calculateIsAdmin() {
     const userId = this.getCurrentUserId();
     if (userId) {
